@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class UserCommentController {
 
+    /**
+     * 사용자 - 댓글 생성
+     */
     @PostMapping
     public ApiResponse<UserCommentCreateVm> createComment(
             @RequestBody UserCommentCreateRequest request
@@ -21,6 +24,9 @@ public class UserCommentController {
         return new ApiResponse<>(HttpStatus.OK, null);
     }
 
+    /**
+     * 사용자 - 댓글 수정
+     */
     @PutMapping("/{commentId}")
     public ApiResponse<UserCommentUpdateVm> updateComment(
             @PathVariable("commentId") Long commentId,
@@ -29,6 +35,9 @@ public class UserCommentController {
         return new ApiResponse<>(HttpStatus.OK, null);
     }
 
+    /**
+     * 사용자 - 댓글 삭제(soft)
+     */
     @DeleteMapping("/{commentId}")
     public ApiResponse<Void> deleteComment(
             @PathVariable("commentId") Long commentId
@@ -36,13 +45,19 @@ public class UserCommentController {
         return new ApiResponse<>(HttpStatus.OK, null);
     }
 
+    /**
+     * 사용자 - 댓글 신고
+     */
     @PostMapping("/report/{commentId}")
     public ApiResponse<Void> reportComment(
             @RequestBody UserCommentReportRequest request
     ) {
         return new ApiResponse<>(HttpStatus.OK, null);
     }
-    
+
+    /**
+     * 사용자 - 댓글 공감
+     */
     @PostMapping("/like/{commentId}")
     public ApiResponse<Void> likeBoard(
             @PathVariable("commentId") Long commentId
@@ -50,6 +65,9 @@ public class UserCommentController {
         return new ApiResponse<>(HttpStatus.OK, null);
     }
 
+    /**
+     * 사용자 - 댓글 공감해제
+     */
     @PutMapping("/unlike/{commentId}")
     public ApiResponse<Void> unlikeBoard(
             @PathVariable("commentId") Long commentId

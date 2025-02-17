@@ -20,6 +20,9 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class AdminBoardController {
 
+    /**
+     * 관리자 - 게시판 생성
+     * */
     @PostMapping
     public ApiResponse<AdminBoardCreateVm> createBoard(
             @RequestBody AdminBoardCreateRequest request
@@ -27,6 +30,9 @@ public class AdminBoardController {
         return new ApiResponse<>(HttpStatus.CREATED, null);
     }
 
+    /**
+     * 관리자 - 게시판 수정
+     * */
     @PutMapping("/{boardId}")
     public ApiResponse<AdminBoardUpdateVm> updateBoard(
             @PathVariable("boardId") Long boardId,
@@ -35,6 +41,9 @@ public class AdminBoardController {
         return new ApiResponse<>(HttpStatus.OK, null);
     }
 
+    /**
+     * 관리자 - 게시판 미사용 상태로 수정
+     * */
     @DeleteMapping("/{boardId}")
     public ApiResponse<Void> deleteBoard(
             @PathVariable("boardId") Long boardId
@@ -42,6 +51,9 @@ public class AdminBoardController {
         return new ApiResponse<>(HttpStatus.OK, null);
     }
 
+    /**
+     * 관리자 - 게시판 1개, 게시판 1개의 모든 댓글 목록 조회
+     * */
     @GetMapping("/{boardId}")
     public ApiResponse<AdminBoardSearchVM> findBoard(
             @PathVariable("boardId") Long boardId
@@ -49,6 +61,9 @@ public class AdminBoardController {
         return new ApiResponse<>(HttpStatus.OK, null);
     }
 
+    /**
+     * 관리자 - 게시판 목록 조회
+     * */
     @GetMapping("/list")
     public ApiResponse<Page<AdminBoardSearchVM>> searchBoard(
             @RequestParam(required = false, defaultValue = "ENABLED") BoardStatus boardStatus,
