@@ -22,7 +22,7 @@ public class UserBoardController {
             @RequestParam(required = false, defaultValue = "") String search,
             @PageableDefault(size = 10, sort = "id") Pageable pageable
     ) {
-        return new ApiResponse<>(HttpStatus.OK, null);
+        return new ApiResponse<>(null, null);
     }
 
     /**
@@ -32,7 +32,7 @@ public class UserBoardController {
     public ApiResponse<Void> likeBoard(
             @PathVariable("boardId") Long boardId
     ) {
-        return new ApiResponse<>(HttpStatus.OK, null);
+        return new ApiResponse<>(null, null);
     }
 
     /**
@@ -42,6 +42,6 @@ public class UserBoardController {
     public ApiResponse<Void> unlikeBoard(
             @PathVariable("boardId") Long boardId
     ) {
-        return new ApiResponse<>(HttpStatus.OK, null);
+        return new ApiResponse<>(null, null);
     }
 }

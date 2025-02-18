@@ -1,23 +1,27 @@
 package noel.example.board.model.common;
 
-import lombok.Getter;
+import noel.example.board.exception.ErrorCode;
 import org.springframework.http.HttpStatus;
 
-@Getter
-public class ApiResponse<T> {
-
-    private String message;
-    private HttpStatus httpStatus;
-    private T data;
+public record ApiResponse<T>(
+        HttpStatus httpStatus,
+        String message,
+        T data
+) {
 
     public ApiResponse(String message, T data) {
-        this.message = message;
-        this.data = data;
+        this(
+                null,
+                message,
+                data
+        );
     }
 
-    public ApiResponse(HttpStatus httpStatus, T data) {
-        this.httpStatus = httpStatus;
-        this.data = data;
+    public ApiResponse (ErrorCode errorCode) {
+        this(
+                errorCode.getHttpStatus(),
+                errorCode.getMessage(),
+                null
+        );
     }
-
 }

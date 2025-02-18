@@ -1,8 +1,9 @@
 package noel.example.board.web.controller.admin;
 
 import lombok.RequiredArgsConstructor;
+import noel.example.board.config.resolver.Admin;
 import noel.example.board.model.common.ApiResponse;
-import noel.example.board.model.common.BoardStatus;
+import noel.example.board.model.BoardStatus;
 import noel.example.board.web.request.admin.AdminBoardCreateRequest;
 import noel.example.board.web.request.admin.AdminBoardUpdateRequest;
 import noel.example.board.web.vm.admin.AdminBoardCreateVm;
@@ -25,9 +26,10 @@ public class AdminBoardController {
      * */
     @PostMapping
     public ApiResponse<AdminBoardCreateVm> createBoard(
-            @RequestBody AdminBoardCreateRequest request
+            @RequestBody AdminBoardCreateRequest request,
+            @Admin Long adminNo
     ) {
-        return new ApiResponse<>(HttpStatus.CREATED, null);
+        return new ApiResponse<>(null, null);
     }
 
     /**
@@ -38,7 +40,7 @@ public class AdminBoardController {
             @PathVariable("boardId") Long boardId,
             @RequestBody AdminBoardUpdateRequest request
     ) {
-        return new ApiResponse<>(HttpStatus.OK, null);
+        return new ApiResponse<>(null, null);
     }
 
     /**
@@ -48,7 +50,7 @@ public class AdminBoardController {
     public ApiResponse<Void> deleteBoard(
             @PathVariable("boardId") Long boardId
     ) {
-        return new ApiResponse<>(HttpStatus.OK, null);
+        return new ApiResponse<>(null, null);
     }
 
     /**
@@ -58,7 +60,7 @@ public class AdminBoardController {
     public ApiResponse<AdminBoardSearchVM> findBoard(
             @PathVariable("boardId") Long boardId
     ) {
-        return new ApiResponse<>(HttpStatus.OK, null);
+        return new ApiResponse<>(null, null);
     }
 
     /**
@@ -72,6 +74,6 @@ public class AdminBoardController {
             @RequestParam(required = false, defaultValue = "") String search,
             @PageableDefault(size = 10, sort = "id") Pageable pageable
     ) {
-        return new ApiResponse<>(HttpStatus.OK, null);
+        return new ApiResponse<>(null, null);
     }
 }

@@ -21,7 +21,7 @@ public class UserCommentController {
     public ApiResponse<UserCommentCreateVm> createComment(
             @RequestBody UserCommentCreateRequest request
     ) {
-        return new ApiResponse<>(HttpStatus.OK, null);
+        return new ApiResponse<>(null, null);
     }
 
     /**
@@ -32,7 +32,7 @@ public class UserCommentController {
             @PathVariable("commentId") Long commentId,
             @RequestBody UsersCommentUpdateRequest request
     ) {
-        return new ApiResponse<>(HttpStatus.OK, null);
+        return new ApiResponse<>(null, null);
     }
 
     /**
@@ -42,7 +42,7 @@ public class UserCommentController {
     public ApiResponse<Void> deleteComment(
             @PathVariable("commentId") Long commentId
     ) {
-        return new ApiResponse<>(HttpStatus.OK, null);
+        return new ApiResponse<>(null, null);
     }
 
     /**
@@ -52,7 +52,7 @@ public class UserCommentController {
     public ApiResponse<Void> reportComment(
             @RequestBody UserCommentReportRequest request
     ) {
-        return new ApiResponse<>(HttpStatus.OK, null);
+        return new ApiResponse<>(null, null);
     }
 
     /**
@@ -62,7 +62,7 @@ public class UserCommentController {
     public ApiResponse<Void> likeBoard(
             @PathVariable("commentId") Long commentId
     ) {
-        return new ApiResponse<>(HttpStatus.OK, null);
+        return new ApiResponse<>(null, null);
     }
 
     /**
@@ -72,6 +72,6 @@ public class UserCommentController {
     public ApiResponse<Void> unlikeBoard(
             @PathVariable("commentId") Long commentId
     ) {
-        return new ApiResponse<>(HttpStatus.OK, null);
+        return new ApiResponse<>(null, null);
     }
 }
