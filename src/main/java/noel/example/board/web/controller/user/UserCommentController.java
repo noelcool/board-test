@@ -7,10 +7,10 @@ import noel.example.board.web.request.user.UserCommentReportRequest;
 import noel.example.board.web.request.user.UsersCommentUpdateRequest;
 import noel.example.board.web.vm.user.UserCommentCreateVm;
 import noel.example.board.web.vm.user.UserCommentUpdateVm;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-@RestController("/v1/user/comment")
+@RestController
+@RequestMapping("/v1/user/comment")
 @RequiredArgsConstructor
 public class UserCommentController {
 

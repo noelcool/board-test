@@ -6,11 +6,11 @@ import noel.example.board.web.vm.user.UserBoardCommentSearchVm;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 
-@RestController("/v1/user/board")
+@RestController
+@RequestMapping("/v1/user/board")
 @RequiredArgsConstructor
 public class UserBoardController {
 
