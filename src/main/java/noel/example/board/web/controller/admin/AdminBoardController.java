@@ -1,9 +1,9 @@
 package noel.example.board.web.controller.admin;
 
-import lombok.RequiredArgsConstructor;
 import noel.example.board.config.resolver.Admin;
-import noel.example.board.model.common.ApiResponse;
 import noel.example.board.model.BoardStatus;
+import noel.example.board.model.common.ApiResponse;
+import noel.example.board.service.admin.AdminBoardService;
 import noel.example.board.web.request.admin.AdminBoardCreateRequest;
 import noel.example.board.web.request.admin.AdminBoardUpdateRequest;
 import noel.example.board.web.vm.admin.AdminBoardCreateVm;
@@ -12,29 +12,35 @@ import noel.example.board.web.vm.admin.AdminBoardUpdateVm;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 
-@RestController("/v1/admin/board")
-@RequiredArgsConstructor
+@RestController
+@RequestMapping("/v1/admin/board")
 public class AdminBoardController {
+
+    private final AdminBoardService adminBoardService;
+
+    public AdminBoardController(AdminBoardService adminBoardService) {
+        this.adminBoardService = adminBoardService;
+    }
 
     /**
      * 관리자 - 게시판 생성
-     * */
+     */
     @PostMapping
     public ApiResponse<AdminBoardCreateVm> createBoard(
             @RequestBody AdminBoardCreateRequest request,
             @Admin Long adminNo
     ) {
-        return new ApiResponse<>(null, null);
+        var adminBoardDto = adminBoardService.createBoard(request);
+        return new ApiResponse<>(null, new AdminBoardCreateVm(adminBoardDto));
     }
 
     /**
      * 관리자 - 게시판 수정
-     * */
+     */
     @PutMapping("/{boardId}")
     public ApiResponse<AdminBoardUpdateVm> updateBoard(
             @PathVariable("boardId") Long boardId,
@@ -45,7 +51,7 @@ public class AdminBoardController {
 
     /**
      * 관리자 - 게시판 미사용 상태로 수정
-     * */
+     */
     @DeleteMapping("/{boardId}")
     public ApiResponse<Void> deleteBoard(
             @PathVariable("boardId") Long boardId
@@ -55,7 +61,7 @@ public class AdminBoardController {
 
     /**
      * 관리자 - 게시판 1개, 게시판 1개의 모든 댓글 목록 조회
-     * */
+     */
     @GetMapping("/{boardId}")
     public ApiResponse<AdminBoardSearchVM> findBoard(
             @PathVariable("boardId") Long boardId
@@ -65,7 +71,7 @@ public class AdminBoardController {
 
     /**
      * 관리자 - 게시판 목록 조회
-     * */
+     */
     @GetMapping("/list")
     public ApiResponse<Page<AdminBoardSearchVM>> searchBoard(
             @RequestParam(required = false, defaultValue = "ENABLED") BoardStatus boardStatus,
