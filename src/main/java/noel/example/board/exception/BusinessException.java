@@ -9,16 +9,20 @@ public class BusinessException extends RuntimeException {
     private final ErrorCode errorCode;
 
     public BusinessException(ErrorCode errorCode) {
-        super(errorCode.getMessage());
+        super(errorCode.message);
         this.errorCode = errorCode;
     }
 
     public HttpStatus getStatus() {
-        return errorCode.getHttpStatus();
+        return errorCode.httpStatus;
     }
 
     public String getMessage() {
-        return errorCode.getMessage();
+        return errorCode.message;
+    }
+
+    public ErrorCode getErrorCode() {
+        return errorCode;
     }
 
 }

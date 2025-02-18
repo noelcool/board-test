@@ -19,8 +19,8 @@ public record ApiResponse<T>(
 
     public ApiResponse (ErrorCode errorCode) {
         this(
-                errorCode.getHttpStatus(),
-                errorCode.getMessage(),
+                errorCode.httpStatus,
+                errorCode.message,
                 null
         );
     }
