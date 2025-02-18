@@ -20,7 +20,7 @@ public class AdminCommentController {
     public ApiResponse<AdminCommentCreateVm> createComment(
             @RequestBody AdminCommentCreateRequest request
     ) {
-        return new ApiResponse<>(HttpStatus.OK, null);
+        return new ApiResponse<>(null, null);
     }
 
     /**
@@ -31,7 +31,7 @@ public class AdminCommentController {
             @PathVariable("commentId") Long commentId,
             @RequestBody AdminCommentUpdateRequest request
     ) {
-        return new ApiResponse<>(HttpStatus.OK, null);
+        return new ApiResponse<>(null, null);
     }
 
     /**
@@ -41,7 +41,7 @@ public class AdminCommentController {
     public ApiResponse<Void> deleteComment(
             @PathVariable("commentId") Long commentId
     ) {
-        return new ApiResponse<>(HttpStatus.OK, null);
+        return new ApiResponse<>(null, null);
     }
 
 }
