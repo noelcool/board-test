@@ -7,6 +7,7 @@ import noel.example.board.model.dto.BoardPolicyDto;
 import java.time.LocalDateTime;
 
 /**
+ * @param: id - 게시판 아이디
  * @param: title - 제목
  * @param: policy - 댓글/답글 정책
  * @param: startedAt - 시작일
@@ -16,8 +17,9 @@ import java.time.LocalDateTime;
  * @param: updatedAt - 수정일
  * @param: createdBy - 생성자
  * @param: updatedBy - 수정자
- * */
+ */
 public record AdminBoardCreateVm(
+        Long id,
         String title,
         BoardPolicyDto policy,
         LocalDateTime startedAt,
@@ -30,15 +32,16 @@ public record AdminBoardCreateVm(
 ) {
     public AdminBoardCreateVm(AdminBoardDto dto) {
         this(
-              dto.title(),
-              dto.policy(),
-              dto.startedAt(),
-              dto.endedAt(),
-              dto.status(),
-              dto.createdAt(),
-              dto.updatedAt(),
-              dto.createdBy(),
-              dto.updatedBy()
+                dto.id(),
+                dto.title(),
+                dto.policy(),
+                dto.startedAt(),
+                dto.endedAt(),
+                dto.status(),
+                dto.createdAt(),
+                dto.updatedAt(),
+                dto.createdBy(),
+                dto.updatedBy()
         );
     }
 }
