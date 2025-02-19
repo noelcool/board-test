@@ -49,11 +49,7 @@ class AdminBoardControllerTest {
         var now = LocalDateTime.now();
         var adminBoardCreateRequest = new AdminBoardCreateRequest(
                 "title",
-                new BoardPolicyDto(
-                        true,
-                        true,
-                        new BoardPolicyDto.CommentPolicy(true, true, 0, 0)
-                ),
+                TestFixture.getBoardPolicyDto(),
                 now,
                 now,
                 BoardStatus.ENABLED
@@ -61,26 +57,9 @@ class AdminBoardControllerTest {
 
         var request = objectMapper.writeValueAsString(adminBoardCreateRequest);
 
-        var adminBoardDto = new AdminBoardDto(
-                "",
-                new BoardPolicyDto(
-                        true,
-                        true,
-                        new BoardPolicyDto.CommentPolicy(
-                                true,
-                                true,
-                                1,
-                                1)
-                ),
-                now.minusDays(1),
-                now.plusDays(1),
-                BoardStatus.ENABLED,
-                now.minusHours(1),
-                now.plusHours(1),
-                "김모카",
-                "김모카");
+        var adminBoardDto = TestFixture.getAdminBoardDto();
 
-        when(adminBoardService.createBoard(any())).thenReturn(adminBoardDto);
+        when(adminBoardService.createBoard(any(AdminBoardCreateRequest.class))).thenReturn(adminBoardDto);
 
         mockMvc.perform(post(BASE_URI)
                         .contentType(APPLICATION_JSON)
