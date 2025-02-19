@@ -1,4 +1,8 @@
 
-= 게시판 생성
+== 게시판 생성
 
 operation::board-create[]
+
+== 게시판 수정
+
+operation::board-update[]

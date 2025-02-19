@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
  * @param: updatedBy - 수정자
  * */
 public record AdminBoardDto(
+        Long id,
         String title,
         BoardPolicyDto policy,
         LocalDateTime startedAt,

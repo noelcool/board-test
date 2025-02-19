@@ -46,7 +46,8 @@ public class AdminBoardController {
             @PathVariable("boardId") Long boardId,
             @RequestBody AdminBoardUpdateRequest request
     ) {
-        return new ApiResponse<>(null, null);
+        var adminBoardDto = adminBoardService.updateBoard(boardId, request);
+        return new ApiResponse<>(null, new AdminBoardUpdateVm(adminBoardDto));
     }
 
     /**
