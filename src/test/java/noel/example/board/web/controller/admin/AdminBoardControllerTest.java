@@ -1,6 +1,7 @@
 package noel.example.board.web.controller.admin;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import noel.example.board.config.ControllerTestAnnotation;
 import noel.example.board.model.BoardStatus;
 import noel.example.board.model.dto.AdminBoardDto;
 import noel.example.board.model.dto.BoardPolicyDto;
@@ -8,14 +9,11 @@ import noel.example.board.service.admin.AdminBoardService;
 import noel.example.board.web.request.admin.AdminBoardCreateRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.restdocs.RestDocumentationExtension;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 import java.time.LocalDateTime;
 
@@ -23,15 +21,14 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.JsonFieldType.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
-@AutoConfigureMockMvc
-@ExtendWith(RestDocumentationExtension.class)
-@AutoConfigureRestDocs
+@ControllerTestAnnotation
+@WebMvcTest(AdminBoardController.class)
 class AdminBoardControllerTest {
 
     @Autowired
@@ -40,7 +37,7 @@ class AdminBoardControllerTest {
     @Autowired
     ObjectMapper objectMapper;
 
-    @Mock
+    @MockitoBean
     AdminBoardService adminBoardService;
 
     private String BASE_URI = "/v1/admin/board";
@@ -89,8 +86,12 @@ class AdminBoardControllerTest {
                         .contentType(APPLICATION_JSON)
                         .content(request)
                         .header("X_ADMIN_NO", 1L)
-                ).andExpect(status().isOk())
+                )
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(status().isOk())
                 .andDo(document("board-create",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
                         requestFields(
                                 fieldWithPath("title").type(STRING).description("이름"),
                                 fieldWithPath("policy").type(OBJECT).description("댓글/답글 정책"),
