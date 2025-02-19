@@ -1,0 +1,4 @@
+
+= 게시판 생성
+
+operation::board-create[]

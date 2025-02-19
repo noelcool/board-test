@@ -1,21 +1,19 @@
 plugins {
     id 'java'
     id 'org.springframework.boot' version '3.4.2'
-    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+    id 'io.spring.dependency-management' version '1.1.0'
     id 'org.asciidoctor.jvm.convert' version '3.3.2'
 }
 
-group = 'noel.example'
-version = '0.0.1-SNAPSHOT'
 
 java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
-    }
+    group = 'noel.example.board'
+    version = '0.0.1'
+    sourceCompatibility = JavaVersion.VERSION_21
 }
 
-configurations {
-    asciidoctorExt
+springBoot {
+    buildInfo()
 }
 
 ext {
@@ -24,6 +22,13 @@ ext {
 
 repositories {
     mavenCentral()
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+    asciidoctoExt
 }
 
 dependencies {
@@ -37,19 +42,32 @@ dependencies {
 
     implementation 'com.h2database:h2'
 
-    asciidoctorExt 'org.springframework.restdocs:spring-restdocs-asciidoctor'
+    testCompileOnly 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
-    testImplementation 'org.mockito:mockito-core'
+
+    asciidoctorExt 'org.springframework.restdocs:spring-restdocs-asciidoctor'
+    testRuntimeOnly 'com.h2database:h2'
 }
 
 test {
+    failFast = true
     outputs.dir snippetsDir
+    useJUnitPlatform()
 }
 
 asciidoctor {
     inputs.dir snippetsDir
-    configurations 'asciidoctorExt'
     dependsOn test
+    baseDirFollowsSourceDir()
+    configurations 'asciidoctorExt'
+}
+
+bootJar {
+    dependsOn asciidoctor
+    from("${asciidoctor.outputDir}") {
+        into 'static/docs'
+    }
 }
