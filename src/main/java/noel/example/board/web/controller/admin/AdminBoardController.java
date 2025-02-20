@@ -1,20 +1,19 @@
 package noel.example.board.web.controller.admin;
 
 import noel.example.board.config.resolver.Admin;
-import noel.example.board.model.BoardStatus;
 import noel.example.board.model.common.ApiResponse;
 import noel.example.board.service.admin.AdminBoardService;
 import noel.example.board.web.request.admin.AdminBoardCreateRequest;
+import noel.example.board.web.request.admin.AdminBoardSearchRequest;
 import noel.example.board.web.request.admin.AdminBoardUpdateRequest;
 import noel.example.board.web.vm.admin.AdminBoardCreateVm;
 import noel.example.board.web.vm.admin.AdminBoardSearchVM;
 import noel.example.board.web.vm.admin.AdminBoardUpdateVm;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/v1/admin/board")
@@ -86,13 +85,13 @@ public class AdminBoardController {
      */
     @GetMapping("/list")
     public ApiResponse<Page<AdminBoardSearchVM>> searchBoard(
-            @RequestParam(required = false, defaultValue = "ENABLED") BoardStatus boardStatus,
-            @RequestParam(required = false, defaultValue = "2020-01-01") LocalDateTime startedAt,
-            @RequestParam(required = false, defaultValue = "2099-12-31") LocalDateTime endedAt,
-            @RequestParam(required = false, defaultValue = "") String search,
-            @PageableDefault(size = 10, sort = "id") Pageable pageable,
+            @ModelAttribute AdminBoardSearchRequest request,
+            @PageableDefault(page = 1, size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
             @Admin Long adminNo
     ) {
-        return new ApiResponse<>(null, null);
+        var adminBoardDtos = adminBoardService.searchBoard(request, pageable);
+        return new ApiResponse<>(null,
+                adminBoardDtos.map(AdminBoardSearchVM::new)
+        );
     }
 }
