@@ -60,4 +60,8 @@ public class AdminBoardService {
                 "김모카");
     }
 
+    public void deleteBoard(Long boardId, Long adminNo) {
+
+    }
+
 }

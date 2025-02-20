@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
@@ -188,5 +189,28 @@ class AdminBoardControllerTest {
                         )
                 ));
 
+    }
+
+    @Test
+    @DisplayName("관리자 - 게시판 미사용 상태로 수정")
+    void deleteBoard() throws Exception {
+        doNothing().when(adminBoardService).deleteBoard(anyLong(), anyLong());
+
+        mockMvc.perform(delete(BASE_URI + "/{boardId}", 1L)
+                        .contentType(APPLICATION_JSON)
+                        .header("X_ADMIN_NO", 1L)
+                )
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(status().isOk())
+                .andDo(document("board-delete",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        requestHeaders(
+                                headerWithName("X_ADMIN_NO").description("admin header")
+                        ),
+                        pathParameters(
+                                parameterWithName("boardId").description("게시판 아이디")
+                        )
+                ));
     }
 }
