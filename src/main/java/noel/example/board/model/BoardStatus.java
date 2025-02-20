@@ -1,8 +1,8 @@
 package noel.example.board.model;
 
 /**
- * @param: ENABLED - 사용중
- * @param: DISABLED - 미사용
+ * ENABLED - 사용중
+ * DISABLED - 미사용
  * */
 public enum BoardStatus {
     ENABLED,
