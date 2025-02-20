@@ -64,4 +64,27 @@ public class AdminBoardService {
 
     }
 
+    public AdminBoardDto findBoard(Long boardId) {
+        var now = LocalDateTime.now();
+        return new AdminBoardDto(
+                1L,
+                "",
+                new BoardPolicyDto(
+                        true,
+                        true,
+                        new BoardPolicyDto.CommentPolicy(
+                                true,
+                                true,
+                                1,
+                                1)
+                ),
+                now.minusDays(1),
+                now.plusDays(1),
+                BoardStatus.ENABLED,
+                now.minusHours(1),
+                now.plusHours(1),
+                "김모카",
+                "김모카");
+    }
+
 }

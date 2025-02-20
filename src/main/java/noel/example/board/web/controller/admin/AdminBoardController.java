@@ -68,13 +68,17 @@ public class AdminBoardController {
     }
 
     /**
-     * 관리자 - 게시판 1개, 게시판 1개의 모든 댓글 목록 조회
+     * 관리자 - 게시판 1개 조회
      */
     @GetMapping("/{boardId}")
     public ApiResponse<AdminBoardSearchVM> findBoard(
-            @PathVariable("boardId") Long boardId
+            @PathVariable("boardId") Long boardId,
+            @Admin Long adminNo
     ) {
-        return new ApiResponse<>(null, null);
+        var adminBoardDto = adminBoardService.findBoard(boardId);
+        return new ApiResponse<>(null,
+                new AdminBoardSearchVM(adminBoardDto)
+        );
     }
 
     /**
@@ -86,7 +90,8 @@ public class AdminBoardController {
             @RequestParam(required = false, defaultValue = "2020-01-01") LocalDateTime startedAt,
             @RequestParam(required = false, defaultValue = "2099-12-31") LocalDateTime endedAt,
             @RequestParam(required = false, defaultValue = "") String search,
-            @PageableDefault(size = 10, sort = "id") Pageable pageable
+            @PageableDefault(size = 10, sort = "id") Pageable pageable,
+            @Admin Long adminNo
     ) {
         return new ApiResponse<>(null, null);
     }

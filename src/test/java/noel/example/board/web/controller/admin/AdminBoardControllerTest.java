@@ -213,4 +213,51 @@ class AdminBoardControllerTest {
                         )
                 ));
     }
+
+    @Test
+    @DisplayName("관리자 - 게시판 1개 조회")
+    void findBoard() throws Exception {
+
+        var adminBoardDto = TestFixture.getAdminBoardDto();
+
+        when(adminBoardService.findBoard(anyLong())).thenReturn(adminBoardDto);
+
+        mockMvc.perform(get(BASE_URI + "/{boardId}", 1L)
+                        .contentType(APPLICATION_JSON)
+                        .header("X_ADMIN_NO", 1L)
+                )
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(status().isOk())
+                .andDo(document("board-find-one",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        requestHeaders(
+                                headerWithName("X_ADMIN_NO").description("admin header")
+                        ),
+                        pathParameters(
+                                parameterWithName("boardId").description("게시판 아이디")
+                        ),
+                        responseFields(
+                                beneathPath("data"),
+                                fieldWithPath("id").type(NUMBER).description("아이디"),
+                                fieldWithPath("title").type(STRING).description("이름"),
+                                fieldWithPath("policy").type(OBJECT).description("댓글/답글 정책"),
+                                fieldWithPath("policy.isReplyEnabled").type(BOOLEAN).description("댓글/답글 정책 - 답글 허용 여부"),
+                                fieldWithPath("policy.isCommentEnabled").type(BOOLEAN).description("댓글/답글 정책 - 댓글 허용 여부"),
+                                fieldWithPath("policy.commentPolicy").type(OBJECT).description("댓글/답글 정책 - 댓글 정책"),
+                                fieldWithPath("policy.commentPolicy.hasPerCommentLimit").type(BOOLEAN).description("댓글/답글 정책 - 댓글 정책 - 1인 댓글 최대수 지정 여부"),
+                                fieldWithPath("policy.commentPolicy.hasDailyUserLimit").type(BOOLEAN).description("댓글/답글 정책 - 댓글 정책 - 1일 1인 댓글 최대 수 지정 여부"),
+                                fieldWithPath("policy.commentPolicy.maxPerComment").type(NUMBER).description("댓글/답글 정책 - 댓글 정책 - 1인 댓글 최대수"),
+                                fieldWithPath("policy.commentPolicy.maxDailyPerUser").type(NUMBER).description("댓글/답글 정책 - 댓글 정책 - 1일 1인 댓글 최대 수"),
+                                fieldWithPath("startedAt").type(STRING).description("시작일"),
+                                fieldWithPath("endedAt").type(STRING).description("종료일, null 인 경우 종료일 없음"),
+                                fieldWithPath("status").type(STRING).description("활성화 상태"),
+                                fieldWithPath("createdAt").type(STRING).description("생성일"),
+                                fieldWithPath("updatedAt").type(STRING).description("수정일"),
+                                fieldWithPath("createdBy").type(STRING).description("생성자"),
+                                fieldWithPath("updatedBy").type(STRING).description("수정자")
+                        )
+                ));
+
+    }
 }
