@@ -21,12 +21,15 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
+import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.JsonFieldType.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ControllerTestAnnotation
@@ -61,7 +64,7 @@ class AdminBoardControllerTest {
 
         var adminBoardDto = TestFixture.getAdminBoardDto();
 
-        when(adminBoardService.createBoard(any(AdminBoardCreateRequest.class))).thenReturn(adminBoardDto);
+        when(adminBoardService.createBoard(any(AdminBoardCreateRequest.class), anyLong())).thenReturn(adminBoardDto);
 
         mockMvc.perform(post(BASE_URI)
                         .contentType(APPLICATION_JSON)
@@ -73,6 +76,9 @@ class AdminBoardControllerTest {
                 .andDo(document("board-create",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
+                        requestHeaders(
+                                headerWithName("X_ADMIN_NO").description("admin header")
+                        ),
                         requestFields(
                                 fieldWithPath("title").type(STRING).description("이름"),
                                 fieldWithPath("policy").type(OBJECT).description("댓글/답글 정책"),
@@ -128,7 +134,7 @@ class AdminBoardControllerTest {
 
         var adminBoardDto = TestFixture.getAdminBoardDto();
 
-        when(adminBoardService.updateBoard(anyLong(), any(AdminBoardUpdateRequest.class))).thenReturn(adminBoardDto);
+        when(adminBoardService.updateBoard(anyLong(), any(AdminBoardUpdateRequest.class), anyLong())).thenReturn(adminBoardDto);
 
         mockMvc.perform(put(BASE_URI + "/{boardId}", 1L)
                         .contentType(APPLICATION_JSON)
@@ -140,6 +146,12 @@ class AdminBoardControllerTest {
                 .andDo(document("board-update",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
+                        requestHeaders(
+                                headerWithName("X_ADMIN_NO").description("admin header")
+                        ),
+                        pathParameters(
+                                parameterWithName("boardId").description("게시판 아이디")
+                        ),
                         requestFields(
                                 fieldWithPath("title").type(STRING).description("이름"),
                                 fieldWithPath("policy").type(OBJECT).description("댓글/답글 정책"),

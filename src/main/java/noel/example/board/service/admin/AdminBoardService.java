@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class AdminBoardService {
 
-    public AdminBoardDto createBoard(AdminBoardCreateRequest request) {
+    public AdminBoardDto createBoard(AdminBoardCreateRequest request, Long adminNo) {
         var now = LocalDateTime.now();
         return new AdminBoardDto(
                 1L,
@@ -37,7 +37,7 @@ public class AdminBoardService {
                 "김모카");
     }
 
-    public AdminBoardDto updateBoard(Long boardId, AdminBoardUpdateRequest request) {
+    public AdminBoardDto updateBoard(Long boardId, AdminBoardUpdateRequest request, Long adminNo) {
         var now = LocalDateTime.now();
         return new AdminBoardDto(
                 1L,
@@ -59,4 +59,5 @@ public class AdminBoardService {
                 "김모카",
                 "김모카");
     }
+
 }

@@ -34,8 +34,10 @@ public class AdminBoardController {
             @RequestBody AdminBoardCreateRequest request,
             @Admin Long adminNo
     ) {
-        var adminBoardDto = adminBoardService.createBoard(request);
-        return new ApiResponse<>(null, new AdminBoardCreateVm(adminBoardDto));
+        var adminBoardDto = adminBoardService.createBoard(request, adminNo);
+        return new ApiResponse<>(null,
+                new AdminBoardCreateVm(adminBoardDto)
+        );
     }
 
     /**
@@ -44,10 +46,13 @@ public class AdminBoardController {
     @PutMapping("/{boardId}")
     public ApiResponse<AdminBoardUpdateVm> updateBoard(
             @PathVariable("boardId") Long boardId,
-            @RequestBody AdminBoardUpdateRequest request
+            @RequestBody AdminBoardUpdateRequest request,
+            @Admin Long adminNo
     ) {
-        var adminBoardDto = adminBoardService.updateBoard(boardId, request);
-        return new ApiResponse<>(null, new AdminBoardUpdateVm(adminBoardDto));
+        var adminBoardDto = adminBoardService.updateBoard(boardId, request, adminNo);
+        return new ApiResponse<>(null,
+                new AdminBoardUpdateVm(adminBoardDto)
+        );
     }
 
     /**
