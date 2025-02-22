@@ -1,4 +1,29 @@
 package noel.example.board.web.vm.admin;
 
-public record AdminCommentUpdateVm() {
+import noel.example.board.model.dto.CommentDto;
+
+import java.time.LocalDateTime;
+
+import static noel.example.board.model.constant.CommentConstant.BLIND_COMMENT;
+import static noel.example.board.model.type.CommentStatus.BLIND;
+
+public record AdminCommentUpdateVm(
+        long id,
+        Long parentId,
+        String text,
+        String createdBy,
+        LocalDateTime createdAt,
+        LocalDateTime updatedAt
+) {
+
+    public AdminCommentUpdateVm(CommentDto dto) {
+        this(
+                dto.id(),
+                dto.parentId(),
+                BLIND.equals(dto.status()) ? BLIND_COMMENT : dto.text(),
+                dto.createdBy(),
+                dto.createdAt(),
+                dto.updatedAt()
+        );
+    }
 }
