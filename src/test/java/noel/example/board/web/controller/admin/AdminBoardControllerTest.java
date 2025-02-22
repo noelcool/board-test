@@ -50,7 +50,7 @@ class AdminBoardControllerTest {
     @MockitoBean
     AdminBoardService adminBoardService;
 
-    private String BASE_URI = "/v1/admin/board";
+    private final String BASE_URI = "/v1/admin/board";
 
     @Test
     @DisplayName("관리자 - 게시판 생성")
