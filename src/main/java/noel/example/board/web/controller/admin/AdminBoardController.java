@@ -1,5 +1,6 @@
 package noel.example.board.web.controller.admin;
 
+import lombok.RequiredArgsConstructor;
 import noel.example.board.config.resolver.Admin;
 import noel.example.board.model.common.ApiResponse;
 import noel.example.board.service.admin.AdminBoardService;
@@ -17,13 +18,10 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/v1/admin/board")
+@RequiredArgsConstructor
 public class AdminBoardController {
 
     private final AdminBoardService adminBoardService;
-
-    public AdminBoardController(AdminBoardService adminBoardService) {
-        this.adminBoardService = adminBoardService;
-    }
 
     /**
      * 관리자 - 게시판 생성

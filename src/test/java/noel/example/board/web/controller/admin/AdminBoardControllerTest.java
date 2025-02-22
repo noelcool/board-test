@@ -50,7 +50,7 @@ class AdminBoardControllerTest {
     @MockitoBean
     AdminBoardService adminBoardService;
 
-    private String BASE_URI = "/v1/admin/board";
+    private final String BASE_URI = "/v1/admin/board";
 
     @Test
     @DisplayName("관리자 - 게시판 생성")
@@ -79,7 +79,7 @@ class AdminBoardControllerTest {
                 )
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk())
-                .andDo(document("board-create",
+                .andDo(document("admin-board-create",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         requestHeaders(
@@ -150,7 +150,7 @@ class AdminBoardControllerTest {
                 )
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk())
-                .andDo(document("board-update",
+                .andDo(document("admin-board-update",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         requestHeaders(
@@ -208,7 +208,7 @@ class AdminBoardControllerTest {
                 )
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk())
-                .andDo(document("board-delete",
+                .andDo(document("admin-board-delete",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         requestHeaders(
@@ -234,7 +234,7 @@ class AdminBoardControllerTest {
                 )
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk())
-                .andDo(document("board-find-one",
+                .andDo(document("admin-board-find-one",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         requestHeaders(
@@ -290,7 +290,7 @@ class AdminBoardControllerTest {
                 )
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk())
-                .andDo(document("board-search",
+                .andDo(document("admin-board-search",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         requestHeaders(
