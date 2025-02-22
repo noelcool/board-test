@@ -3,6 +3,8 @@ package noel.example.board.fixture;
 import noel.example.board.model.BoardStatus;
 import noel.example.board.model.dto.AdminBoardDto;
 import noel.example.board.model.dto.BoardPolicyDto;
+import noel.example.board.model.dto.CommentDto;
+import noel.example.board.model.type.CommentStatus;
 
 import java.time.LocalDateTime;
 
@@ -37,6 +39,18 @@ public class TestFixture {
                 true,
                 true,
                 new BoardPolicyDto.CommentPolicy(true, true, 0, 0)
+        );
+    }
+
+    public static CommentDto getCommentDto() {
+        return new CommentDto(
+                1L,
+                null,
+                "text",
+                CommentStatus.NULL,
+                "김모카",
+                LocalDateTime.now(),
+                null
         );
     }
 }
