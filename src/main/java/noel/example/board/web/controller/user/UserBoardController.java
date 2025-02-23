@@ -3,7 +3,6 @@ package noel.example.board.web.controller.user;
 import lombok.RequiredArgsConstructor;
 import noel.example.board.config.resolver.User;
 import noel.example.board.model.common.ApiResponse;
-import noel.example.board.service.admin.UserBoardService;
 import noel.example.board.service.admin.UserCommentService;
 import noel.example.board.web.vm.user.UserBoardCommentSearchVm;
 import org.springframework.data.domain.Page;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 public class UserBoardController {
 
     private final UserCommentService userCommentService;
-    private final UserBoardService userBoardService;
 
     /**
      * 사용자 - 게시판 1개의 댓글 목록 조회
@@ -35,25 +33,4 @@ public class UserBoardController {
         );
     }
 
-    /**
-     * 사용자 - 게시판 공감
-     */
-    @PostMapping("/like/{boardId}")
-    public ApiResponse<Void> likeBoard(
-            @PathVariable("boardId") Long boardId,
-            @User Long userNo
-    ) {
-        return new ApiResponse<>(null, null);
-    }
-
-    /**
-     * 사용자 - 게시판 공감해제
-     */
-    @PutMapping("/unlike/{boardId}")
-    public ApiResponse<Void> unlikeBoard(
-            @PathVariable("boardId") Long boardId,
-            @User Long userNo
-    ) {
-        return new ApiResponse<>(null, null);
-    }
 }
