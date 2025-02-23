@@ -1,6 +1,7 @@
 package noel.example.board.web.controller.user;
 
 import lombok.RequiredArgsConstructor;
+import noel.example.board.config.resolver.User;
 import noel.example.board.model.common.ApiResponse;
 import noel.example.board.web.request.user.UserCommentCreateRequest;
 import noel.example.board.web.request.user.UserCommentReportRequest;
@@ -19,7 +20,8 @@ public class UserCommentController {
      */
     @PostMapping
     public ApiResponse<UserCommentCreateVm> createComment(
-            @RequestBody UserCommentCreateRequest request
+            @RequestBody UserCommentCreateRequest request,
+            @User Long userNo
     ) {
         return new ApiResponse<>(null, null);
     }
@@ -30,7 +32,8 @@ public class UserCommentController {
     @PutMapping("/{commentId}")
     public ApiResponse<UserCommentUpdateVm> updateComment(
             @PathVariable("commentId") Long commentId,
-            @RequestBody UsersCommentUpdateRequest request
+            @RequestBody UsersCommentUpdateRequest request,
+            @User Long userNo
     ) {
         return new ApiResponse<>(null, null);
     }
@@ -40,7 +43,8 @@ public class UserCommentController {
      */
     @DeleteMapping("/{commentId}")
     public ApiResponse<Void> deleteComment(
-            @PathVariable("commentId") Long commentId
+            @PathVariable("commentId") Long commentId,
+            @User Long userNo
     ) {
         return new ApiResponse<>(null, null);
     }
@@ -50,7 +54,8 @@ public class UserCommentController {
      */
     @PostMapping("/report/{commentId}")
     public ApiResponse<Void> reportComment(
-            @RequestBody UserCommentReportRequest request
+            @RequestBody UserCommentReportRequest request,
+            @User Long userNo
     ) {
         return new ApiResponse<>(null, null);
     }
@@ -60,7 +65,8 @@ public class UserCommentController {
      */
     @PostMapping("/like/{commentId}")
     public ApiResponse<Void> likeBoard(
-            @PathVariable("commentId") Long commentId
+            @PathVariable("commentId") Long commentId,
+            @User Long userNo
     ) {
         return new ApiResponse<>(null, null);
     }
@@ -70,7 +76,8 @@ public class UserCommentController {
      */
     @PutMapping("/unlike/{commentId}")
     public ApiResponse<Void> unlikeBoard(
-            @PathVariable("commentId") Long commentId
+            @PathVariable("commentId") Long commentId,
+            @User Long userNo
     ) {
         return new ApiResponse<>(null, null);
     }
