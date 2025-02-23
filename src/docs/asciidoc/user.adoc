@@ -1,0 +1,5 @@
+= 고객향
+
+== 게시판 1개의 모든 댓글 목록 조회
+
+operation::user-board-comment-list[]
