@@ -1,6 +1,7 @@
 package noel.example.board.web.controller.user;
 
 import lombok.RequiredArgsConstructor;
+import noel.example.board.config.resolver.User;
 import noel.example.board.model.common.ApiResponse;
 import noel.example.board.web.vm.user.UserBoardCommentSearchVm;
 import org.springframework.data.domain.Page;
@@ -20,7 +21,8 @@ public class UserBoardController {
     @GetMapping("/{boardId}")
     public ApiResponse<Page<UserBoardCommentSearchVm>> searchBoardComment(
             @RequestParam(required = false, defaultValue = "") String search,
-            @PageableDefault(size = 10, sort = "id") Pageable pageable
+            @PageableDefault(size = 10, sort = "id") Pageable pageable,
+            @User Long userNo
     ) {
         return new ApiResponse<>(null, null);
     }
@@ -30,7 +32,8 @@ public class UserBoardController {
      */
     @PostMapping("/like/{boardId}")
     public ApiResponse<Void> likeBoard(
-            @PathVariable("boardId") Long boardId
+            @PathVariable("boardId") Long boardId,
+            @User Long userNo
     ) {
         return new ApiResponse<>(null, null);
     }
@@ -40,7 +43,8 @@ public class UserBoardController {
      */
     @PutMapping("/unlike/{boardId}")
     public ApiResponse<Void> unlikeBoard(
-            @PathVariable("boardId") Long boardId
+            @PathVariable("boardId") Long boardId,
+            @User Long userNo
     ) {
         return new ApiResponse<>(null, null);
     }
