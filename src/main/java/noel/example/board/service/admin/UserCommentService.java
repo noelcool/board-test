@@ -2,6 +2,7 @@ package noel.example.board.service.admin;
 
 import noel.example.board.model.dto.CommentDto;
 import noel.example.board.model.type.CommentStatus;
+import noel.example.board.web.request.user.UserCommentCreateRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -26,4 +27,15 @@ public class UserCommentService {
         return new PageImpl<>(commentDtos, pageable, commentDtos.size());
     }
 
+    public CommentDto createComment(UserCommentCreateRequest request, Long userNo) {
+        return new CommentDto(
+                1L,
+                null,
+                "text",
+                CommentStatus.NULL,
+                "김모카",
+                LocalDateTime.now(),
+                null
+        );
+    }
 }

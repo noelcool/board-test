@@ -3,6 +3,7 @@ package noel.example.board.web.controller.user;
 import lombok.RequiredArgsConstructor;
 import noel.example.board.config.resolver.User;
 import noel.example.board.model.common.ApiResponse;
+import noel.example.board.service.admin.UserCommentService;
 import noel.example.board.web.request.user.UserCommentCreateRequest;
 import noel.example.board.web.request.user.UserCommentReportRequest;
 import noel.example.board.web.request.user.UsersCommentUpdateRequest;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class UserCommentController {
 
+    private final UserCommentService userCommentService;
+
     /**
      * 사용자 - 댓글 생성
      */
@@ -23,7 +26,8 @@ public class UserCommentController {
             @RequestBody UserCommentCreateRequest request,
             @User Long userNo
     ) {
-        return new ApiResponse<>(null, null);
+        var commentDto = userCommentService.createComment(request, userNo);
+        return new ApiResponse<>(null, new UserCommentCreateVm(commentDto));
     }
 
     /**
@@ -81,4 +85,5 @@ public class UserCommentController {
     ) {
         return new ApiResponse<>(null, null);
     }
+
 }
