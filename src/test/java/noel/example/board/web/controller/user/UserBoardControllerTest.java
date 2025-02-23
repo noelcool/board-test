@@ -3,7 +3,6 @@ package noel.example.board.web.controller.user;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import noel.example.board.config.ControllerTestAnnotation;
 import noel.example.board.fixture.TestFixture;
-import noel.example.board.service.admin.UserBoardService;
 import noel.example.board.service.admin.UserCommentService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -43,9 +42,6 @@ class UserBoardControllerTest {
 
     @Autowired
     ObjectMapper objectMapper;
-
-    @MockitoBean
-    UserBoardService userBoardService;
 
     @MockitoBean
     UserCommentService userCommentService;

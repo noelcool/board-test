@@ -1,4 +1,26 @@
 package noel.example.board.web.vm.user;
 
-public record UserCommentCreateVm() {
+import noel.example.board.model.dto.CommentDto;
+
+import java.time.LocalDateTime;
+
+public record UserCommentCreateVm(
+        long id,
+        Long parentId,
+        String text,
+        String createdBy,
+        LocalDateTime createdAt,
+        LocalDateTime updatedAt
+) {
+
+    public UserCommentCreateVm(CommentDto dto) {
+        this(
+                dto.id(),
+                dto.parentId(),
+                dto.text(),
+                dto.createdBy(),
+                dto.createdAt(),
+                dto.updatedAt()
+        );
+    }
 }
