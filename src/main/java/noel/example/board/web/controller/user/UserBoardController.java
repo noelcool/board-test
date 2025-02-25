@@ -9,7 +9,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
@@ -26,9 +28,9 @@ public class UserBoardController {
     public ApiResponse<Page<UserBoardCommentSearchVm>> getBoardComments(
             @PageableDefault(page = 1, size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
             @User Long userNo) {
-        var commentDtos = userCommentService.getBoardComments(pageable, userNo);
+        var dto = userCommentService.getBoardComments(pageable, userNo);
         return new ApiResponse<>(null,
-                commentDtos.map(UserBoardCommentSearchVm::new)
+                dto.map(UserBoardCommentSearchVm::new)
         );
     }
 

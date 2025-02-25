@@ -10,6 +10,9 @@ import noel.example.board.web.vm.admin.AdminCommentCreateVm;
 import noel.example.board.web.vm.admin.AdminCommentUpdateVm;
 import org.springframework.web.bind.annotation.*;
 
+import static noel.example.board.model.constant.ResponseConstant.COMMENT_BLIND_COMPLETE;
+import static noel.example.board.model.constant.ResponseConstant.COMMENT_DELETE_COMPLETE;
+
 @RestController
 @RequestMapping("/v1/admin/comment")
 @RequiredArgsConstructor
@@ -24,8 +27,8 @@ public class AdminCommentController {
     public ApiResponse<AdminCommentCreateVm> createComment(
             @RequestBody AdminCommentCreateRequest request,
             @Admin Long adminNo) {
-        var commentDto = adminCommentService.createComment(request, adminNo);
-        return new ApiResponse<>(null, new AdminCommentCreateVm(commentDto));
+        var dto = adminCommentService.createComment(request, adminNo);
+        return new ApiResponse<>(null, new AdminCommentCreateVm(dto));
     }
 
     /**
@@ -36,8 +39,8 @@ public class AdminCommentController {
             @PathVariable("commentId") Long commentId,
             @RequestBody AdminCommentUpdateRequest request,
             @Admin Long adminNo) {
-        var commentDto = adminCommentService.updateComment(commentId, request, adminNo);
-        return new ApiResponse<>(null, new AdminCommentUpdateVm(commentDto));
+        var dto = adminCommentService.updateComment(commentId, request, adminNo);
+        return new ApiResponse<>(null, new AdminCommentUpdateVm(dto));
     }
 
     /**
@@ -48,7 +51,7 @@ public class AdminCommentController {
             @PathVariable("commentId") Long commentId,
             @Admin Long adminNo) {
         adminCommentService.deleteComment(commentId, adminNo);
-        return new ApiResponse<>("댓글/답글이 삭제되었습니다.", null);
+        return new ApiResponse<>(COMMENT_DELETE_COMPLETE, null);
     }
 
     /**
@@ -59,7 +62,7 @@ public class AdminCommentController {
             @PathVariable("commentId") Long commentId,
             @Admin Long adminNo) {
         adminCommentService.blindComment(commentId, adminNo);
-        return new ApiResponse<>("댓글/답글이 차단되었습니다.", null);
+        return new ApiResponse<>(COMMENT_BLIND_COMPLETE, null);
     }
 
 }

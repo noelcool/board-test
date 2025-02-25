@@ -11,6 +11,8 @@ import noel.example.board.web.vm.user.UserCommentCreateVm;
 import noel.example.board.web.vm.user.UserCommentUpdateVm;
 import org.springframework.web.bind.annotation.*;
 
+import static noel.example.board.model.constant.ResponseConstant.*;
+
 @RestController
 @RequestMapping("/v1/user/comment")
 @RequiredArgsConstructor
@@ -25,8 +27,8 @@ public class UserCommentController {
     public ApiResponse<UserCommentCreateVm> createComment(
             @RequestBody UserCommentCreateRequest request,
             @User Long userNo) {
-        var commentDto = userCommentService.createComment(request, userNo);
-        return new ApiResponse<>(null, new UserCommentCreateVm(commentDto));
+        var dto = userCommentService.createComment(request, userNo);
+        return new ApiResponse<>(null, new UserCommentCreateVm(dto));
     }
 
     /**
@@ -37,8 +39,8 @@ public class UserCommentController {
             @PathVariable("commentId") Long commentId,
             @RequestBody UsersCommentUpdateRequest request,
             @User Long userNo) {
-        var commentDto = userCommentService.updateComment(commentId, request, userNo);
-        return new ApiResponse<>(null, new UserCommentUpdateVm(commentDto));
+        var dto = userCommentService.updateComment(commentId, request, userNo);
+        return new ApiResponse<>(null, new UserCommentUpdateVm(dto));
     }
 
     /**
@@ -49,7 +51,7 @@ public class UserCommentController {
             @PathVariable("commentId") Long commentId,
             @User Long userNo) {
         userCommentService.deleteComment(commentId, userNo);
-        return new ApiResponse<>("댓글/답글이 삭제되었습니다.", null);
+        return new ApiResponse<>(COMMENT_DELETE_COMPLETE, null);
     }
 
     /**
@@ -61,7 +63,7 @@ public class UserCommentController {
             @RequestBody UserCommentReportRequest request,
             @User Long userNo) {
         userCommentService.reportComment(commentId, request, userNo);
-        return new ApiResponse<>("댓글/답글이 신고되었습니다.", null);
+        return new ApiResponse<>(COMMENT_REPORT_COMPLETE, null);
     }
 
     /**
@@ -72,7 +74,7 @@ public class UserCommentController {
             @PathVariable("commentId") Long commentId,
             @User Long userNo) {
         userCommentService.likeComment(commentId, userNo);
-        return new ApiResponse<>("댓글/답글이 공감되었습니다.", null);
+        return new ApiResponse<>(COMMENT_LIKE_COMPLETE, null);
     }
 
     /**
@@ -83,7 +85,7 @@ public class UserCommentController {
             @PathVariable("commentId") Long commentId,
             @User Long userNo) {
         userCommentService.unlikeComment(commentId, userNo);
-        return new ApiResponse<>("댓글/답글이 공감해제되었습니다.", null);
+        return new ApiResponse<>(COMMENT_UNLIKE_COMPLETE, null);
     }
 
 }
