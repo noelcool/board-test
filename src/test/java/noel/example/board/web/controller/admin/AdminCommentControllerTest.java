@@ -16,6 +16,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 import java.time.LocalDateTime;
 
+import static noel.example.board.model.constant.TestConstant.ADMIN_NO;
+import static noel.example.board.model.constant.TestConstant.ADMIN_NO_DESCRIPTION;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.doNothing;
@@ -65,7 +67,7 @@ class AdminCommentControllerTest {
         mockMvc.perform(post(BASE_URI + "/{boardId}", 1L)
                         .contentType(APPLICATION_JSON)
                         .content(request)
-                        .header("X_ADMIN_NO", 1L)
+                        .header(ADMIN_NO, 1L)
                 )
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk())
@@ -73,7 +75,7 @@ class AdminCommentControllerTest {
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         requestHeaders(
-                                headerWithName("X_ADMIN_NO").description("admin header")
+                                headerWithName(ADMIN_NO).description(ADMIN_NO_DESCRIPTION)
                         ),
                         requestFields(
                                 fieldWithPath("parentId").optional().type(NUMBER).description("부모 댓글 아이디"),
@@ -108,7 +110,7 @@ class AdminCommentControllerTest {
         mockMvc.perform(put(BASE_URI + "/{commentId}", 1L)
                         .contentType(APPLICATION_JSON)
                         .content(request)
-                        .header("X_ADMIN_NO", 1L)
+                        .header(ADMIN_NO, 1L)
                 )
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk())
@@ -116,7 +118,7 @@ class AdminCommentControllerTest {
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         requestHeaders(
-                                headerWithName("X_ADMIN_NO").description("admin header")
+                                headerWithName(ADMIN_NO).description(ADMIN_NO_DESCRIPTION)
                         ),
                         requestFields(
                                 fieldWithPath("parentId").optional().type(NUMBER).description("부모 댓글 아이디"),
@@ -141,7 +143,7 @@ class AdminCommentControllerTest {
 
         mockMvc.perform(delete(BASE_URI + "/{commentId}", 1L)
                         .contentType(APPLICATION_JSON)
-                        .header("X_ADMIN_NO", 1L)
+                        .header(ADMIN_NO, 1L)
                 )
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk())
@@ -149,7 +151,7 @@ class AdminCommentControllerTest {
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         requestHeaders(
-                                headerWithName("X_ADMIN_NO").description("admin header")
+                                headerWithName(ADMIN_NO).description(ADMIN_NO_DESCRIPTION)
                         ),
                         pathParameters(
                                 parameterWithName("commentId").description("댓글/답글 아이디")
@@ -164,7 +166,7 @@ class AdminCommentControllerTest {
 
         mockMvc.perform(post(BASE_URI + "/blind/{commentId}", 1L)
                         .contentType(APPLICATION_JSON)
-                        .header("X_ADMIN_NO", 1L)
+                        .header(ADMIN_NO, 1L)
                 )
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk())
@@ -172,7 +174,7 @@ class AdminCommentControllerTest {
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         requestHeaders(
-                                headerWithName("X_ADMIN_NO").description("admin header")
+                                headerWithName(ADMIN_NO).description(ADMIN_NO_DESCRIPTION)
                         ),
                         pathParameters(
                                 parameterWithName("commentId").description("댓글/답글 아이디")
