@@ -35,4 +35,7 @@ public class UserCommentService {
     public CommentDto updateComment(Long commentId, UsersCommentUpdateRequest request, Long userNo) {
         return null;
     }
+
+    public void deleteComment(Long commentId, Long userNo) {
+    }
 }

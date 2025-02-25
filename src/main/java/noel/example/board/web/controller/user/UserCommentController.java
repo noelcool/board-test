@@ -48,6 +48,7 @@ public class UserCommentController {
     public ApiResponse<Void> deleteComment(
             @PathVariable("commentId") Long commentId,
             @User Long userNo) {
+        userCommentService.deleteComment(commentId, userNo);
         return new ApiResponse<>("댓글/답글이 삭제되었습니다.", null);
     }
 

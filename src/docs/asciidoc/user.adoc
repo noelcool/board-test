@@ -11,3 +11,7 @@ operation::user-board-comment-create[]
 == 댓글 수정
 
 operation::user-board-comment-update[]
+
+== 댓글 삭제
+
+operation::user-board-comment-delete[]
