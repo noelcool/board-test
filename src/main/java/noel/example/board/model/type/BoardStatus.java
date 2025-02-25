@@ -1,4 +1,4 @@
-package noel.example.board.model;
+package noel.example.board.model.type;
 
 /**
  * ENABLED - 사용중

@@ -1,6 +1,6 @@
 package noel.example.board.web.vm.admin;
 
-import noel.example.board.model.BoardStatus;
+import noel.example.board.model.type.BoardStatus;
 import noel.example.board.model.dto.AdminBoardDto;
 import noel.example.board.model.dto.BoardPolicyDto;
 

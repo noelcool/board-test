@@ -1,6 +1,6 @@
 package noel.example.board.web.request.admin;
 
-import noel.example.board.model.BoardStatus;
+import noel.example.board.model.type.BoardStatus;
 import noel.example.board.model.dto.BoardPolicyDto;
 
 import java.time.LocalDateTime;
