@@ -17,6 +17,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 import java.util.List;
 
+import static noel.example.board.model.constant.TestConstant.USER_NO;
+import static noel.example.board.model.constant.TestConstant.USER_NO_DESCRIPTION;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
@@ -69,7 +71,7 @@ class UserBoardControllerTest {
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         requestHeaders(
-                                headerWithName("X_USER_NO").description("user header")
+                                headerWithName(USER_NO).description(USER_NO_DESCRIPTION)
                         ),
                         queryParameters(
                                 parameterWithName("page").description("페이지 번호"),

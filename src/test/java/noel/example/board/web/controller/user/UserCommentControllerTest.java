@@ -16,6 +16,8 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
+import static noel.example.board.model.constant.TestConstant.USER_NO;
+import static noel.example.board.model.constant.TestConstant.USER_NO_DESCRIPTION;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.doNothing;
@@ -70,7 +72,7 @@ class UserCommentControllerTest {
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         requestHeaders(
-                                headerWithName("X_USER_NO").description("user header")
+                                headerWithName(USER_NO).description(USER_NO_DESCRIPTION)
                         ),
                         requestFields(
                                 fieldWithPath("parentId").optional().type(NUMBER).description("부모 댓글 아이디"),
@@ -112,7 +114,7 @@ class UserCommentControllerTest {
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         requestHeaders(
-                                headerWithName("X_USER_NO").description("user header")
+                                headerWithName(USER_NO).description(USER_NO_DESCRIPTION)
                         ),
                         requestFields(
                                 fieldWithPath("parentId").optional().type(NUMBER).description("부모 댓글 아이디"),
@@ -147,7 +149,7 @@ class UserCommentControllerTest {
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         requestHeaders(
-                                headerWithName("X_USER_NO").description("user header")
+                                headerWithName(USER_NO).description(USER_NO_DESCRIPTION)
                         )
                 ));
     }
@@ -172,7 +174,7 @@ class UserCommentControllerTest {
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         requestHeaders(
-                                headerWithName("X_USER_NO").description("user header")
+                                headerWithName(USER_NO).description(USER_NO_DESCRIPTION)
                         ),
                         requestFields(
                                 fieldWithPath("reason").type(STRING).description("댓글/답글 신고 사유")
@@ -197,7 +199,7 @@ class UserCommentControllerTest {
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         requestHeaders(
-                                headerWithName("X_USER_NO").description("user header")
+                                headerWithName(USER_NO).description(USER_NO_DESCRIPTION)
                         )
                 ));
 
@@ -219,7 +221,7 @@ class UserCommentControllerTest {
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         requestHeaders(
-                                headerWithName("X_USER_NO").description("user header")
+                                headerWithName(USER_NO).description(USER_NO_DESCRIPTION)
                         )
                 ));
 

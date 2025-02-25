@@ -22,6 +22,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static noel.example.board.model.constant.TestConstant.ADMIN_NO;
+import static noel.example.board.model.constant.TestConstant.ADMIN_NO_DESCRIPTION;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.doNothing;
@@ -75,7 +77,7 @@ class AdminBoardControllerTest {
         mockMvc.perform(post(BASE_URI)
                         .contentType(APPLICATION_JSON)
                         .content(request)
-                        .header("X_ADMIN_NO", 1L)
+                        .header(ADMIN_NO, 1L)
                 )
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk())
@@ -83,7 +85,7 @@ class AdminBoardControllerTest {
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         requestHeaders(
-                                headerWithName("X_ADMIN_NO").description("admin header")
+                                headerWithName(ADMIN_NO).description(ADMIN_NO_DESCRIPTION)
                         ),
                         requestFields(
                                 fieldWithPath("title").type(STRING).description("이름"),
@@ -146,7 +148,7 @@ class AdminBoardControllerTest {
         mockMvc.perform(put(BASE_URI + "/{boardId}", 1L)
                         .contentType(APPLICATION_JSON)
                         .content(request)
-                        .header("X_ADMIN_NO", 1L)
+                        .header(ADMIN_NO, 1L)
                 )
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk())
@@ -154,7 +156,7 @@ class AdminBoardControllerTest {
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         requestHeaders(
-                                headerWithName("X_ADMIN_NO").description("admin header")
+                                headerWithName(ADMIN_NO).description(ADMIN_NO_DESCRIPTION)
                         ),
                         pathParameters(
                                 parameterWithName("boardId").description("게시판 아이디")
@@ -204,7 +206,7 @@ class AdminBoardControllerTest {
 
         mockMvc.perform(delete(BASE_URI + "/{boardId}", 1L)
                         .contentType(APPLICATION_JSON)
-                        .header("X_ADMIN_NO", 1L)
+                        .header(ADMIN_NO, 1L)
                 )
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk())
@@ -212,7 +214,7 @@ class AdminBoardControllerTest {
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         requestHeaders(
-                                headerWithName("X_ADMIN_NO").description("admin header")
+                                headerWithName(ADMIN_NO).description(ADMIN_NO_DESCRIPTION)
                         ),
                         pathParameters(
                                 parameterWithName("boardId").description("게시판 아이디")
@@ -230,7 +232,7 @@ class AdminBoardControllerTest {
 
         mockMvc.perform(get(BASE_URI + "/{boardId}", 1L)
                         .contentType(APPLICATION_JSON)
-                        .header("X_ADMIN_NO", 1L)
+                        .header(ADMIN_NO, 1L)
                 )
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk())
@@ -238,7 +240,7 @@ class AdminBoardControllerTest {
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         requestHeaders(
-                                headerWithName("X_ADMIN_NO").description("admin header")
+                                headerWithName(ADMIN_NO).description(ADMIN_NO_DESCRIPTION)
                         ),
                         pathParameters(
                                 parameterWithName("boardId").description("게시판 아이디")
@@ -286,7 +288,7 @@ class AdminBoardControllerTest {
                         .queryParam("page", "1")
                         .queryParam("size", "10")
                         .queryParam("sort", "id.desc")
-                        .header("X_ADMIN_NO", 1L)
+                        .header(ADMIN_NO, 1L)
                 )
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk())
@@ -294,7 +296,7 @@ class AdminBoardControllerTest {
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         requestHeaders(
-                                headerWithName("X_ADMIN_NO").description("admin header")
+                                headerWithName(ADMIN_NO).description(ADMIN_NO_DESCRIPTION)
                         ),
                         queryParameters(
                                 parameterWithName("boardStatus").description("게시판 상태"),
