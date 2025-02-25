@@ -15,3 +15,12 @@ operation::user-board-comment-update[]
 == 댓글 삭제
 
 operation::user-board-comment-delete[]
+
+== 댓글 공감
+
+operation::user-board-comment-like[]
+
+== 댓글 공감 해제
+
+operation::user-board-comment-unlike[]
+

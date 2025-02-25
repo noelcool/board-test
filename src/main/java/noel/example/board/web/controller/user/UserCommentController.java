@@ -61,27 +61,29 @@ public class UserCommentController {
             @RequestBody UserCommentReportRequest request,
             @User Long userNo) {
         userCommentService.reportComment(commentId, request, userNo);
-        return new ApiResponse<>(null, null);
+        return new ApiResponse<>("댓글/답글이 신고되었습니다.", null);
     }
 
     /**
      * 사용자 - 댓글 공감
      */
     @PostMapping("/like/{commentId}")
-    public ApiResponse<Void> likeBoard(
+    public ApiResponse<Void> likeComment(
             @PathVariable("commentId") Long commentId,
             @User Long userNo) {
-        return new ApiResponse<>(null, null);
+        userCommentService.likeComment(commentId, userNo);
+        return new ApiResponse<>("댓글/답글이 공감되었습니다.", null);
     }
 
     /**
      * 사용자 - 댓글 공감해제
      */
     @PutMapping("/unlike/{commentId}")
-    public ApiResponse<Void> unlikeBoard(
+    public ApiResponse<Void> unlikeComment(
             @PathVariable("commentId") Long commentId,
             @User Long userNo) {
-        return new ApiResponse<>(null, null);
+        userCommentService.unlikeComment(commentId, userNo);
+        return new ApiResponse<>("댓글/답글이 공감해제되었습니다.", null);
     }
 
 }

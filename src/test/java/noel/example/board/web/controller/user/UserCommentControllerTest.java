@@ -182,10 +182,46 @@ class UserCommentControllerTest {
     }
 
     @Test
-    void likeBoard() throws Exception {
+    @DisplayName("사용자 - 댓글 공감")
+    void likeComment() throws Exception {
+
+        doNothing().when(userCommentService).likeComment(anyLong(), anyLong());
+
+        mockMvc.perform(post(BASE_URI + "/like/{commentId}", commentId)
+                        .contentType(APPLICATION_JSON)
+                        .header("X_USER_NO", 1L)
+                )
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(status().isOk())
+                .andDo(document("user-board-comment-like",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        requestHeaders(
+                                headerWithName("X_USER_NO").description("user header")
+                        )
+                ));
+
     }
 
     @Test
-    void unlikeBoard() throws Exception {
+    @DisplayName("사용자 - 댓글 공감해제")
+    void unlikeComment() throws Exception {
+
+        doNothing().when(userCommentService).unlikeComment(anyLong(), anyLong());
+
+        mockMvc.perform(put(BASE_URI + "/unlike/{commentId}", commentId)
+                        .contentType(APPLICATION_JSON)
+                        .header("X_USER_NO", 1L)
+                )
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(status().isOk())
+                .andDo(document("user-board-comment-unlike",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        requestHeaders(
+                                headerWithName("X_USER_NO").description("user header")
+                        )
+                ));
+
     }
 }

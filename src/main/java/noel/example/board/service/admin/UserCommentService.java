@@ -43,4 +43,11 @@ public class UserCommentService {
     public void reportComment(Long commentId, UserCommentReportRequest request, Long userNo) {
 
     }
+
+    public void likeComment(Long commentId, Long userNo) {
+    }
+
+    public void unlikeComment(Long commentId, Long userNo) {
+
+    }
 }
