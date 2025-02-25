@@ -3,8 +3,10 @@ package noel.example.board.web.controller.user;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import noel.example.board.config.ControllerTestAnnotation;
 import noel.example.board.fixture.TestFixture;
+import noel.example.board.model.type.ReportReason;
 import noel.example.board.service.admin.UserCommentService;
 import noel.example.board.web.request.user.UserCommentCreateRequest;
+import noel.example.board.web.request.user.UserCommentReportRequest;
 import noel.example.board.web.request.user.UsersCommentUpdateRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -151,7 +153,32 @@ class UserCommentControllerTest {
     }
 
     @Test
+    @DisplayName("사용자 - 댓글 신고")
     void reportComment() throws Exception {
+
+        var userCommentReportRequest = new UserCommentReportRequest(ReportReason.ETC);
+        var request = objectMapper.writeValueAsString(userCommentReportRequest);
+
+        doNothing().when(userCommentService).reportComment(anyLong(), any(UserCommentReportRequest.class), anyLong());
+
+        mockMvc.perform(post(BASE_URI + "/report/{commentId}", commentId)
+                        .contentType(APPLICATION_JSON)
+                        .content(request)
+                        .header("X_USER_NO", 1L)
+                )
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(status().isOk())
+                .andDo(document("user-board-comment-report",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        requestHeaders(
+                                headerWithName("X_USER_NO").description("user header")
+                        ),
+                        requestFields(
+                                fieldWithPath("reason").type(STRING).description("댓글/답글 신고 사유")
+                        )
+                ));
+
     }
 
     @Test

@@ -57,8 +57,10 @@ public class UserCommentController {
      */
     @PostMapping("/report/{commentId}")
     public ApiResponse<Void> reportComment(
+            @PathVariable("commentId") Long commentId,
             @RequestBody UserCommentReportRequest request,
             @User Long userNo) {
+        userCommentService.reportComment(commentId, request, userNo);
         return new ApiResponse<>(null, null);
     }
 
