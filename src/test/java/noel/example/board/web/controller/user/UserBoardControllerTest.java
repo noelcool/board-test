@@ -63,7 +63,7 @@ class UserBoardControllerTest {
                         .queryParam("page", "1")
                         .queryParam("size", "10")
                         .queryParam("sort", "id.desc")
-                        .header("X_USER_NO", 1L)
+                        .header(USER_NO, 1L)
                 )
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk())
