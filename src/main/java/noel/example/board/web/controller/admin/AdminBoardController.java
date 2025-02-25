@@ -16,6 +16,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
+import static noel.example.board.model.constant.ResponseConstant.BOARD_UPDATE_NOT_USE;
+
 @RestController
 @RequestMapping("/v1/admin/board")
 @RequiredArgsConstructor
@@ -30,9 +32,9 @@ public class AdminBoardController {
     public ApiResponse<AdminBoardCreateVm> createBoard(
             @RequestBody AdminBoardCreateRequest request,
             @Admin Long adminNo) {
-        var adminBoardDto = adminBoardService.createBoard(request, adminNo);
+        var dto = adminBoardService.createBoard(request, adminNo);
         return new ApiResponse<>(null,
-                new AdminBoardCreateVm(adminBoardDto)
+                new AdminBoardCreateVm(dto)
         );
     }
 
@@ -44,9 +46,9 @@ public class AdminBoardController {
             @PathVariable("boardId") Long boardId,
             @RequestBody AdminBoardUpdateRequest request,
             @Admin Long adminNo) {
-        var adminBoardDto = adminBoardService.updateBoard(boardId, request, adminNo);
+        var dto = adminBoardService.updateBoard(boardId, request, adminNo);
         return new ApiResponse<>(null,
-                new AdminBoardUpdateVm(adminBoardDto)
+                new AdminBoardUpdateVm(dto)
         );
     }
 
@@ -58,7 +60,7 @@ public class AdminBoardController {
             @PathVariable("boardId") Long boardId,
             @Admin Long adminNo) {
         adminBoardService.deleteBoard(boardId, adminNo);
-        return new ApiResponse<>("게시판이 미사용 상태로 변경되었습니다.", null);
+        return new ApiResponse<>(BOARD_UPDATE_NOT_USE, null);
     }
 
     /**
@@ -68,10 +70,8 @@ public class AdminBoardController {
     public ApiResponse<AdminBoardSearchVM> findBoard(
             @PathVariable("boardId") Long boardId,
             @Admin Long adminNo) {
-        var adminBoardDto = adminBoardService.findBoard(boardId);
-        return new ApiResponse<>(null,
-                new AdminBoardSearchVM(adminBoardDto)
-        );
+        var dto = adminBoardService.findBoard(boardId);
+        return new ApiResponse<>(null, new AdminBoardSearchVM(dto));
     }
 
     /**
@@ -82,9 +82,7 @@ public class AdminBoardController {
             @ModelAttribute AdminBoardSearchRequest request,
             @PageableDefault(page = 1, size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
             @Admin Long adminNo) {
-        var adminBoardDtos = adminBoardService.searchBoard(request, pageable);
-        return new ApiResponse<>(null,
-                adminBoardDtos.map(AdminBoardSearchVM::new)
-        );
+        var pageableDto = adminBoardService.searchBoard(request, pageable);
+        return new ApiResponse<>(null, pageableDto.map(AdminBoardSearchVM::new));
     }
 }
