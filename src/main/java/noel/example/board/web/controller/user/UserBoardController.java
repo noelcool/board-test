@@ -29,9 +29,7 @@ public class UserBoardController {
             @PageableDefault(page = 1, size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
             @User Long userNo) {
         var dto = userCommentService.getBoardComments(pageable, userNo);
-        return new ApiResponse<>(null,
-                dto.map(UserBoardCommentSearchVm::new)
-        );
+        return new ApiResponse<>(null, dto.map(UserBoardCommentSearchVm::new));
     }
 
 }
