@@ -24,8 +24,7 @@ public class UserCommentController {
     @PostMapping
     public ApiResponse<UserCommentCreateVm> createComment(
             @RequestBody UserCommentCreateRequest request,
-            @User Long userNo
-    ) {
+            @User Long userNo) {
         var commentDto = userCommentService.createComment(request, userNo);
         return new ApiResponse<>(null, new UserCommentCreateVm(commentDto));
     }
@@ -37,9 +36,9 @@ public class UserCommentController {
     public ApiResponse<UserCommentUpdateVm> updateComment(
             @PathVariable("commentId") Long commentId,
             @RequestBody UsersCommentUpdateRequest request,
-            @User Long userNo
-    ) {
-        return new ApiResponse<>(null, null);
+            @User Long userNo) {
+        var commentDto = userCommentService.updateComment(commentId, request, userNo);
+        return new ApiResponse<>(null, new UserCommentUpdateVm(commentDto));
     }
 
     /**
@@ -48,9 +47,9 @@ public class UserCommentController {
     @DeleteMapping("/{commentId}")
     public ApiResponse<Void> deleteComment(
             @PathVariable("commentId") Long commentId,
-            @User Long userNo
-    ) {
-        return new ApiResponse<>(null, null);
+            @User Long userNo) {
+        userCommentService.deleteComment(commentId, userNo);
+        return new ApiResponse<>("댓글/답글이 삭제되었습니다.", null);
     }
 
     /**
@@ -58,32 +57,33 @@ public class UserCommentController {
      */
     @PostMapping("/report/{commentId}")
     public ApiResponse<Void> reportComment(
+            @PathVariable("commentId") Long commentId,
             @RequestBody UserCommentReportRequest request,
-            @User Long userNo
-    ) {
-        return new ApiResponse<>(null, null);
+            @User Long userNo) {
+        userCommentService.reportComment(commentId, request, userNo);
+        return new ApiResponse<>("댓글/답글이 신고되었습니다.", null);
     }
 
     /**
      * 사용자 - 댓글 공감
      */
     @PostMapping("/like/{commentId}")
-    public ApiResponse<Void> likeBoard(
+    public ApiResponse<Void> likeComment(
             @PathVariable("commentId") Long commentId,
-            @User Long userNo
-    ) {
-        return new ApiResponse<>(null, null);
+            @User Long userNo) {
+        userCommentService.likeComment(commentId, userNo);
+        return new ApiResponse<>("댓글/답글이 공감되었습니다.", null);
     }
 
     /**
      * 사용자 - 댓글 공감해제
      */
     @PutMapping("/unlike/{commentId}")
-    public ApiResponse<Void> unlikeBoard(
+    public ApiResponse<Void> unlikeComment(
             @PathVariable("commentId") Long commentId,
-            @User Long userNo
-    ) {
-        return new ApiResponse<>(null, null);
+            @User Long userNo) {
+        userCommentService.unlikeComment(commentId, userNo);
+        return new ApiResponse<>("댓글/답글이 공감해제되었습니다.", null);
     }
 
 }

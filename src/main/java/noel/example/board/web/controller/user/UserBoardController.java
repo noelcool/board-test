@@ -25,8 +25,7 @@ public class UserBoardController {
     @GetMapping("/{boardId}")
     public ApiResponse<Page<UserBoardCommentSearchVm>> getBoardComments(
             @PageableDefault(page = 1, size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
-            @User Long userNo
-    ) {
+            @User Long userNo) {
         var commentDtos = userCommentService.getBoardComments(pageable, userNo);
         return new ApiResponse<>(null,
                 commentDtos.map(UserBoardCommentSearchVm::new)

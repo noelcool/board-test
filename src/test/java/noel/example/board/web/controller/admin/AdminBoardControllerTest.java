@@ -3,7 +3,7 @@ package noel.example.board.web.controller.admin;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import noel.example.board.config.ControllerTestAnnotation;
 import noel.example.board.fixture.TestFixture;
-import noel.example.board.model.BoardStatus;
+import noel.example.board.model.type.BoardStatus;
 import noel.example.board.service.admin.AdminBoardService;
 import noel.example.board.web.request.admin.AdminBoardCreateRequest;
 import noel.example.board.web.request.admin.AdminBoardSearchRequest;

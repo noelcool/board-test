@@ -1,6 +1,6 @@
 package noel.example.board.fixture;
 
-import noel.example.board.model.BoardStatus;
+import noel.example.board.model.type.BoardStatus;
 import noel.example.board.model.dto.AdminBoardDto;
 import noel.example.board.model.dto.BoardPolicyDto;
 import noel.example.board.model.dto.CommentDto;

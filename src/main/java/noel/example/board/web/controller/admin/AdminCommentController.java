@@ -1,6 +1,5 @@
 package noel.example.board.web.controller.admin;
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import noel.example.board.config.resolver.Admin;
 import noel.example.board.model.common.ApiResponse;
@@ -24,8 +23,7 @@ public class AdminCommentController {
     @PostMapping("/{boardId}")
     public ApiResponse<AdminCommentCreateVm> createComment(
             @RequestBody AdminCommentCreateRequest request,
-            @Admin Long adminNo
-    ) {
+            @Admin Long adminNo) {
         var commentDto = adminCommentService.createComment(request, adminNo);
         return new ApiResponse<>(null, new AdminCommentCreateVm(commentDto));
     }
@@ -37,8 +35,7 @@ public class AdminCommentController {
     public ApiResponse<AdminCommentUpdateVm> updateComment(
             @PathVariable("commentId") Long commentId,
             @RequestBody AdminCommentUpdateRequest request,
-            @Admin Long adminNo
-    ) {
+            @Admin Long adminNo) {
         var commentDto = adminCommentService.updateComment(commentId, request, adminNo);
         return new ApiResponse<>(null, new AdminCommentUpdateVm(commentDto));
     }
@@ -49,8 +46,7 @@ public class AdminCommentController {
     @DeleteMapping("/{commentId}")
     public ApiResponse<Void> deleteComment(
             @PathVariable("commentId") Long commentId,
-            @Admin Long adminNo
-    ) {
+            @Admin Long adminNo) {
         adminCommentService.deleteComment(commentId, adminNo);
         return new ApiResponse<>("댓글/답글이 삭제되었습니다.", null);
     }
@@ -61,8 +57,7 @@ public class AdminCommentController {
     @PostMapping("/blind/{commentId}")
     public ApiResponse<Void> blindComment(
             @PathVariable("commentId") Long commentId,
-            @Admin Long adminNo
-    ) {
+            @Admin Long adminNo) {
         adminCommentService.blindComment(commentId, adminNo);
         return new ApiResponse<>("댓글/답글이 차단되었습니다.", null);
     }

@@ -1,7 +1,7 @@
 package noel.example.board.service.admin;
 
 import lombok.AllArgsConstructor;
-import noel.example.board.model.BoardStatus;
+import noel.example.board.model.type.BoardStatus;
 import noel.example.board.model.dto.AdminBoardDto;
 import noel.example.board.model.dto.BoardPolicyDto;
 import noel.example.board.web.request.admin.AdminBoardCreateRequest;

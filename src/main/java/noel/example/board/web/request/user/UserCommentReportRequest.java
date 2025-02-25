@@ -1,4 +1,8 @@
 package noel.example.board.web.request.user;
 
-public record UserCommentReportRequest() {
+import noel.example.board.model.type.ReportReason;
+
+public record UserCommentReportRequest(
+        ReportReason reason
+) {
 }
