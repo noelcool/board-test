@@ -33,9 +33,7 @@ public class AdminBoardController {
             @RequestBody AdminBoardCreateRequest request,
             @Admin Long adminNo) {
         var dto = adminBoardService.createBoard(request, adminNo);
-        return new ApiResponse<>(null,
-                new AdminBoardCreateVm(dto)
-        );
+        return new ApiResponse<>(null, new AdminBoardCreateVm(dto));
     }
 
     /**
@@ -47,9 +45,7 @@ public class AdminBoardController {
             @RequestBody AdminBoardUpdateRequest request,
             @Admin Long adminNo) {
         var dto = adminBoardService.updateBoard(boardId, request, adminNo);
-        return new ApiResponse<>(null,
-                new AdminBoardUpdateVm(dto)
-        );
+        return new ApiResponse<>(null, new AdminBoardUpdateVm(dto));
     }
 
     /**
