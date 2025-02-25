@@ -24,8 +24,7 @@ public class UserCommentController {
     @PostMapping
     public ApiResponse<UserCommentCreateVm> createComment(
             @RequestBody UserCommentCreateRequest request,
-            @User Long userNo
-    ) {
+            @User Long userNo) {
         var commentDto = userCommentService.createComment(request, userNo);
         return new ApiResponse<>(null, new UserCommentCreateVm(commentDto));
     }
@@ -37,9 +36,9 @@ public class UserCommentController {
     public ApiResponse<UserCommentUpdateVm> updateComment(
             @PathVariable("commentId") Long commentId,
             @RequestBody UsersCommentUpdateRequest request,
-            @User Long userNo
-    ) {
-        return new ApiResponse<>(null, null);
+            @User Long userNo) {
+        var commentDto = userCommentService.updateComment(commentId, request, userNo);
+        return new ApiResponse<>(null, new UserCommentUpdateVm(commentDto));
     }
 
     /**
@@ -48,9 +47,8 @@ public class UserCommentController {
     @DeleteMapping("/{commentId}")
     public ApiResponse<Void> deleteComment(
             @PathVariable("commentId") Long commentId,
-            @User Long userNo
-    ) {
-        return new ApiResponse<>(null, null);
+            @User Long userNo) {
+        return new ApiResponse<>("댓글/답글이 삭제되었습니다.", null);
     }
 
     /**
@@ -59,8 +57,7 @@ public class UserCommentController {
     @PostMapping("/report/{commentId}")
     public ApiResponse<Void> reportComment(
             @RequestBody UserCommentReportRequest request,
-            @User Long userNo
-    ) {
+            @User Long userNo) {
         return new ApiResponse<>(null, null);
     }
 
@@ -70,8 +67,7 @@ public class UserCommentController {
     @PostMapping("/like/{commentId}")
     public ApiResponse<Void> likeBoard(
             @PathVariable("commentId") Long commentId,
-            @User Long userNo
-    ) {
+            @User Long userNo) {
         return new ApiResponse<>(null, null);
     }
 
@@ -81,8 +77,7 @@ public class UserCommentController {
     @PutMapping("/unlike/{commentId}")
     public ApiResponse<Void> unlikeBoard(
             @PathVariable("commentId") Long commentId,
-            @User Long userNo
-    ) {
+            @User Long userNo) {
         return new ApiResponse<>(null, null);
     }
 

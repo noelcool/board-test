@@ -5,6 +5,7 @@ import noel.example.board.config.ControllerTestAnnotation;
 import noel.example.board.fixture.TestFixture;
 import noel.example.board.service.admin.UserCommentService;
 import noel.example.board.web.request.user.UserCommentCreateRequest;
+import noel.example.board.web.request.user.UsersCommentUpdateRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ import static org.springframework.restdocs.payload.JsonFieldType.NUMBER;
 import static org.springframework.restdocs.payload.JsonFieldType.STRING;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ControllerTestAnnotation
@@ -41,6 +43,8 @@ class UserCommentControllerTest {
     UserCommentService userCommentService;
 
     private final String BASE_URI = "/v1/user/comment";
+
+    Long commentId = 1L;
 
     @Test
     @DisplayName("사용자 - 댓글 생성")
@@ -60,7 +64,7 @@ class UserCommentControllerTest {
                 )
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk())
-                .andDo(document("user-board-comment-list",
+                .andDo(document("user-board-comment-create",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         requestHeaders(
@@ -84,7 +88,45 @@ class UserCommentControllerTest {
     }
 
     @Test
+    @DisplayName("사용자 - 댓글 수정")
     void updateComment() throws Exception {
+
+        var commentDto = TestFixture.getCommentDto();
+
+        var userCommentUpdateRequest = new UsersCommentUpdateRequest(null, "text");
+        var request = objectMapper.writeValueAsString(userCommentUpdateRequest);
+
+        when(userCommentService.updateComment(anyLong(), any(UsersCommentUpdateRequest.class), anyLong()))
+                .thenReturn(commentDto);
+
+        mockMvc.perform(put(BASE_URI + "/{commentId}", commentId)
+                        .contentType(APPLICATION_JSON)
+                        .content(request)
+                        .header("X_USER_NO", 1L)
+                )
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(status().isOk())
+                .andDo(document("user-board-comment-update",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        requestHeaders(
+                                headerWithName("X_USER_NO").description("user header")
+                        ),
+                        requestFields(
+                                fieldWithPath("parentId").optional().type(NUMBER).description("부모 댓글 아이디"),
+                                fieldWithPath("text").type(STRING).description("댓글/답글 내용")
+                        ),
+                        responseFields(
+                                beneathPath("data"),
+                                fieldWithPath("id").type(NUMBER).description("아이디"),
+                                fieldWithPath("parentId").optional().type(NUMBER).description("부모 댓글 아이디"),
+                                fieldWithPath("text").type(STRING).description("댓글/답글 내용"),
+                                fieldWithPath("createdBy").type(STRING).description("생성자"),
+                                fieldWithPath("createdAt").type(STRING).description("생성일"),
+                                fieldWithPath("updatedAt").optional().type(STRING).description("수정일")
+                        )
+                ));
+
     }
 
     @Test

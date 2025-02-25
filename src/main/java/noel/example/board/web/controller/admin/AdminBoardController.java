@@ -29,8 +29,7 @@ public class AdminBoardController {
     @PostMapping
     public ApiResponse<AdminBoardCreateVm> createBoard(
             @RequestBody AdminBoardCreateRequest request,
-            @Admin Long adminNo
-    ) {
+            @Admin Long adminNo) {
         var adminBoardDto = adminBoardService.createBoard(request, adminNo);
         return new ApiResponse<>(null,
                 new AdminBoardCreateVm(adminBoardDto)
@@ -44,8 +43,7 @@ public class AdminBoardController {
     public ApiResponse<AdminBoardUpdateVm> updateBoard(
             @PathVariable("boardId") Long boardId,
             @RequestBody AdminBoardUpdateRequest request,
-            @Admin Long adminNo
-    ) {
+            @Admin Long adminNo) {
         var adminBoardDto = adminBoardService.updateBoard(boardId, request, adminNo);
         return new ApiResponse<>(null,
                 new AdminBoardUpdateVm(adminBoardDto)
@@ -58,8 +56,7 @@ public class AdminBoardController {
     @DeleteMapping("/{boardId}")
     public ApiResponse<Void> deleteBoard(
             @PathVariable("boardId") Long boardId,
-            @Admin Long adminNo
-    ) {
+            @Admin Long adminNo) {
         adminBoardService.deleteBoard(boardId, adminNo);
         return new ApiResponse<>("게시판이 미사용 상태로 변경되었습니다.", null);
     }
@@ -70,8 +67,7 @@ public class AdminBoardController {
     @GetMapping("/{boardId}")
     public ApiResponse<AdminBoardSearchVM> findBoard(
             @PathVariable("boardId") Long boardId,
-            @Admin Long adminNo
-    ) {
+            @Admin Long adminNo) {
         var adminBoardDto = adminBoardService.findBoard(boardId);
         return new ApiResponse<>(null,
                 new AdminBoardSearchVM(adminBoardDto)
@@ -85,8 +81,7 @@ public class AdminBoardController {
     public ApiResponse<Page<AdminBoardSearchVM>> searchBoard(
             @ModelAttribute AdminBoardSearchRequest request,
             @PageableDefault(page = 1, size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
-            @Admin Long adminNo
-    ) {
+            @Admin Long adminNo) {
         var adminBoardDtos = adminBoardService.searchBoard(request, pageable);
         return new ApiResponse<>(null,
                 adminBoardDtos.map(AdminBoardSearchVM::new)
