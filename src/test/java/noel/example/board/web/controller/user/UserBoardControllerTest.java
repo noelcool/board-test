@@ -3,7 +3,7 @@ package noel.example.board.web.controller.user;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import noel.example.board.config.ControllerTestAnnotation;
 import noel.example.board.fixture.TestFixture;
-import noel.example.board.service.admin.UserCommentService;
+import noel.example.board.service.user.UserCommentService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

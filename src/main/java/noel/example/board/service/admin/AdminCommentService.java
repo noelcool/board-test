@@ -17,30 +17,14 @@ public class AdminCommentService {
      * 관리자 - 댓글 생성
      */
     public CommentDto createComment(AdminCommentCreateRequest request, Long adminNo) {
-        return new CommentDto(
-                1L,
-                null,
-                "text",
-                CommentStatus.NULL,
-                "김모카",
-                LocalDateTime.now(),
-                null
-        );
+        return null;
     }
 
     /**
      * 관리자 - 댓글 수정
      */
     public CommentDto updateComment(Long commentId, AdminCommentUpdateRequest request, Long adminNo) {
-        return new CommentDto(
-                1L,
-                null,
-                "text",
-                CommentStatus.NULL,
-                "김모카",
-                LocalDateTime.now(),
-                null
-        );
+        return null;
     }
 
     /**
