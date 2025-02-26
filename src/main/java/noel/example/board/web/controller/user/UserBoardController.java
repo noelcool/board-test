@@ -1,7 +1,7 @@
 package noel.example.board.web.controller.user;
 
 import lombok.RequiredArgsConstructor;
-import noel.example.board.config.resolver.User;
+import noel.example.board.resolver.User;
 import noel.example.board.model.common.ApiResponse;
 import noel.example.board.service.user.UserCommentService;
 import noel.example.board.web.vm.user.UserBoardCommentSearchVm;

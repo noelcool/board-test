@@ -1,4 +1,4 @@
-package noel.example.board.config.resolver;
+package noel.example.board.resolver;
 
 import noel.example.board.exception.BusinessException;
 import org.springframework.core.MethodParameter;
@@ -8,16 +8,16 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
-import static noel.example.board.exception.ErrorCode.USER_NOT_FOUND;
+import static noel.example.board.exception.ErrorCode.ADMIN_NOT_FOUND;
 
 @Component
-public class UserResolver implements HandlerMethodArgumentResolver {
+public class AdminResolver implements HandlerMethodArgumentResolver {
 
-    private static final String X_USER_NO = "X_USER_NO";
+    private static final String X_ADMIN_NO = "X_ADMIN_NO";
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
-        return parameter.hasParameterAnnotation(User.class)
+        return parameter.hasParameterAnnotation(Admin.class)
                 && parameter.getParameterType().equals(Long.class);
     }
 
@@ -28,11 +28,11 @@ public class UserResolver implements HandlerMethodArgumentResolver {
             NativeWebRequest webRequest,
             WebDataBinderFactory binderFactory) {
 
-        String userNo = webRequest.getHeader(X_USER_NO);
-        if (userNo == null) {
-            throw new BusinessException(USER_NOT_FOUND);
+        String adminNo = webRequest.getHeader(X_ADMIN_NO);
+        if (adminNo == null) {
+            throw new BusinessException(ADMIN_NOT_FOUND);
         }
-        return Long.parseLong(userNo);
+        return Long.parseLong(adminNo);
     }
 
 }
