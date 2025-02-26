@@ -1,6 +1,8 @@
 package noel.example.board.persistence.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
+import lombok.RequiredArgsConstructor;
 import noel.example.board.model.type.BoardStatus;
 import noel.example.board.persistence.entity.model.BoardPolicy;
 import org.hibernate.annotations.JdbcTypeCode;
@@ -14,6 +16,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "board")
+@RequiredArgsConstructor
 public class Board {
 
     @Id
@@ -53,4 +56,15 @@ public class Board {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    @Builder
+    public Board(String title, BoardPolicy policy,
+                 LocalDateTime startedAt, LocalDateTime endedAt,
+                 BoardStatus status, String createdBy) {
+        this.title = title;
+        this.policy = policy;
+        this.startedAt = startedAt;
+        this.endedAt = endedAt;
+        this.status = status;
+        this.createdBy = createdBy;
+    }
 }
