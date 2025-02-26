@@ -1,5 +1,6 @@
 package noel.example.board.web.controller.admin;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import noel.example.board.resolver.Admin;
 import noel.example.board.model.common.ApiResponse;
@@ -30,7 +31,7 @@ public class AdminBoardController {
      */
     @PostMapping
     public ApiResponse<AdminBoardCreateVm> createBoard(
-            @RequestBody AdminBoardCreateRequest request,
+            @Valid @RequestBody AdminBoardCreateRequest request,
             @Admin Long adminNo) {
         var dto = adminBoardService.createBoard(request, adminNo);
         return new ApiResponse<>(null, new AdminBoardCreateVm(dto));
