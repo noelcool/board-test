@@ -20,49 +20,11 @@ import java.util.List;
 public class AdminBoardService {
 
     public AdminBoardDto createBoard(AdminBoardCreateRequest request, Long adminNo) {
-        var now = LocalDateTime.now();
-        return new AdminBoardDto(
-                1L,
-                "",
-                new BoardPolicyDto(
-                        true,
-                        true,
-                        new BoardPolicyDto.CommentPolicy(
-                                true,
-                                true,
-                                1,
-                                1)
-                ),
-                now.minusDays(1),
-                now.plusDays(1),
-                BoardStatus.ENABLED,
-                now.minusHours(1),
-                now.plusHours(1),
-                "김모카",
-                "김모카");
+        return null;
     }
 
     public AdminBoardDto updateBoard(Long boardId, AdminBoardUpdateRequest request, Long adminNo) {
-        var now = LocalDateTime.now();
-        return new AdminBoardDto(
-                1L,
-                "",
-                new BoardPolicyDto(
-                        true,
-                        true,
-                        new BoardPolicyDto.CommentPolicy(
-                                true,
-                                true,
-                                1,
-                                1)
-                ),
-                now.minusDays(1),
-                now.plusDays(1),
-                BoardStatus.ENABLED,
-                now.minusHours(1),
-                now.plusHours(1),
-                "김모카",
-                "김모카");
+        return null;
     }
 
     public void deleteBoard(Long boardId, Long adminNo) {
@@ -70,51 +32,10 @@ public class AdminBoardService {
     }
 
     public AdminBoardDto findBoard(Long boardId) {
-        var now = LocalDateTime.now();
-        return new AdminBoardDto(
-                1L,
-                "",
-                new BoardPolicyDto(
-                        true,
-                        true,
-                        new BoardPolicyDto.CommentPolicy(
-                                true,
-                                true,
-                                1,
-                                1)
-                ),
-                now.minusDays(1),
-                now.plusDays(1),
-                BoardStatus.ENABLED,
-                now.minusHours(1),
-                now.plusHours(1),
-                "김모카",
-                "김모카");
+        return null;
     }
 
     public Page<AdminBoardDto> searchBoard(AdminBoardSearchRequest request, Pageable pageable) {
-        var now = LocalDateTime.now();
-        var adminBoardDto = List.of(
-                new AdminBoardDto(
-                        1L,
-                        "",
-                        new BoardPolicyDto(
-                                true,
-                                true,
-                                new BoardPolicyDto.CommentPolicy(
-                                        true,
-                                        true,
-                                        1,
-                                        1)
-                        ),
-                        now.minusDays(1),
-                        now.plusDays(1),
-                        BoardStatus.ENABLED,
-                        now.minusHours(1),
-                        now.plusHours(1),
-                        "김모카",
-                        "김모카")
-        );
-        return new PageImpl<>(adminBoardDto, pageable, adminBoardDto.size());
+        return null;
     }
 }
