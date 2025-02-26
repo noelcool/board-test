@@ -1,4 +1,4 @@
-package noel.example.board.config.resolver;
+package noel.example.board.resolver;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;

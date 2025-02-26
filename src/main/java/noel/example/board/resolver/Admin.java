@@ -1,4 +1,4 @@
-package noel.example.board.config.resolver;
+package noel.example.board.resolver;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

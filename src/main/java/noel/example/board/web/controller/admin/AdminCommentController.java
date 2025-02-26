@@ -1,7 +1,7 @@
 package noel.example.board.web.controller.admin;
 
 import lombok.RequiredArgsConstructor;
-import noel.example.board.config.resolver.Admin;
+import noel.example.board.resolver.Admin;
 import noel.example.board.model.common.ApiResponse;
 import noel.example.board.service.admin.AdminCommentService;
 import noel.example.board.web.request.admin.AdminCommentCreateRequest;
