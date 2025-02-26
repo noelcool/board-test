@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import noel.example.board.config.ControllerTestAnnotation;
 import noel.example.board.fixture.TestFixture;
 import noel.example.board.model.type.ReportReason;
-import noel.example.board.service.admin.UserCommentService;
+import noel.example.board.service.user.UserCommentService;
 import noel.example.board.web.request.user.UserCommentCreateRequest;
 import noel.example.board.web.request.user.UserCommentReportRequest;
 import noel.example.board.web.request.user.UsersCommentUpdateRequest;

@@ -1,4 +1,4 @@
-package noel.example.board.service.admin;
+package noel.example.board.service.user;
 
 import noel.example.board.model.dto.CommentDto;
 import noel.example.board.model.type.CommentStatus;
@@ -17,16 +17,7 @@ import java.util.List;
 public class UserCommentService {
 
     public Page<CommentDto> getBoardComments(Pageable pageable, Long userNo) {
-        var commentDtos = List.of(new CommentDto(
-                1L,
-                null,
-                "text",
-                CommentStatus.NULL,
-                "김모카",
-                LocalDateTime.now(),
-                null
-        ));
-        return new PageImpl<>(commentDtos, pageable, commentDtos.size());
+        return null;
     }
 
     public CommentDto createComment(UserCommentCreateRequest request, Long userNo) {
