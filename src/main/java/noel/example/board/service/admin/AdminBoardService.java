@@ -42,6 +42,7 @@ public class AdminBoardService {
         return new AdminBoardDto(board);
     }
 
+    @Transactional
     public AdminBoardDto updateBoard(Long boardId, AdminBoardUpdateRequest request, Long adminNo) {
         var board = boardRepository.findById(boardId)
                 .orElseThrow(() -> new BusinessException(NON_EXISTENT_BOARD));
@@ -63,8 +64,11 @@ public class AdminBoardService {
         return new AdminBoardDto(board);
     }
 
+    @Transactional
     public void deleteBoard(Long boardId, Long adminNo) {
-
+        var board = boardRepository.findById(boardId)
+                .orElseThrow(() -> new BusinessException(NON_EXISTENT_BOARD));
+        board.delete(adminNo.toString());
     }
 
     public AdminBoardDto findBoard(Long boardId) {

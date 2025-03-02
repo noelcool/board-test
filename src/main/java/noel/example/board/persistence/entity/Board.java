@@ -15,6 +15,8 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
 
+import static noel.example.board.model.type.BoardStatus.DISABLED;
+
 @Entity
 @Table(name = "board")
 @RequiredArgsConstructor
@@ -78,6 +80,11 @@ public class Board {
         this.startedAt = startedAt;
         this.endedAt = endedAt;
         this.status = status;
+        this.updatedBy = updatedBy;
+    }
+
+    public void delete(String updatedBy) {
+        this.status = DISABLED;
         this.updatedBy = updatedBy;
     }
 }
