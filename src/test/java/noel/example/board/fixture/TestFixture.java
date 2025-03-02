@@ -19,7 +19,7 @@ public class TestFixture {
                 new BoardPolicyDto(
                         true,
                         true,
-                        new BoardPolicyDto.CommentPolicy(
+                        new BoardPolicyDto.CommentPolicyDto(
                                 true,
                                 true,
                                 1,
@@ -38,7 +38,7 @@ public class TestFixture {
         return new BoardPolicyDto(
                 true,
                 true,
-                new BoardPolicyDto.CommentPolicy(true, true, 0, 0)
+                new BoardPolicyDto.CommentPolicyDto(true, true, 0, 0)
         );
     }
 

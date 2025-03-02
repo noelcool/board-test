@@ -36,7 +36,7 @@ public class AdminBoardService {
                 .createdBy(adminNo.toString())
                 .build();
         boardRepository.save(board);
-        return null;
+        return new AdminBoardDto(board);
     }
 
     public AdminBoardDto updateBoard(Long boardId, AdminBoardUpdateRequest request, Long adminNo) {
