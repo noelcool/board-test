@@ -10,7 +10,7 @@ operation::admin-board-update[]
 
 == 게시판 미사용 상태로 수정
 
-operation::admin-board-delete[]
+operation::admin-board-disable[]
 
 == 게시판 1개 조회
 

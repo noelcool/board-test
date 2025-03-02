@@ -210,7 +210,7 @@ class AdminBoardControllerTest {
                 )
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk())
-                .andDo(document("admin-board-delete",
+                .andDo(document("admin-board-disable",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         requestHeaders(
