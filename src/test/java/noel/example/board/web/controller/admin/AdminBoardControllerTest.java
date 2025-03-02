@@ -201,8 +201,8 @@ class AdminBoardControllerTest {
 
     @Test
     @DisplayName("관리자 - 게시판 미사용 상태로 수정")
-    void deleteBoard() throws Exception {
-        doNothing().when(adminBoardService).deleteBoard(anyLong(), anyLong());
+    void disableBoard() throws Exception {
+        doNothing().when(adminBoardService).disableBoard(anyLong(), anyLong());
 
         mockMvc.perform(delete(BASE_URI + "/{boardId}", 1L)
                         .contentType(APPLICATION_JSON)
@@ -210,7 +210,7 @@ class AdminBoardControllerTest {
                 )
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk())
-                .andDo(document("admin-board-delete",
+                .andDo(document("admin-board-disable",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         requestHeaders(
