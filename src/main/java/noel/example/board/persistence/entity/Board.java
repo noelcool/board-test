@@ -2,6 +2,7 @@ package noel.example.board.persistence.entity;
 
 import jakarta.persistence.*;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import noel.example.board.model.type.BoardStatus;
 import noel.example.board.persistence.entity.model.BoardPolicy;
@@ -17,6 +18,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "board")
 @RequiredArgsConstructor
+@Getter
 public class Board {
 
     @Id
@@ -66,5 +68,16 @@ public class Board {
         this.endedAt = endedAt;
         this.status = status;
         this.createdBy = createdBy;
+    }
+
+    public void update(String title, BoardPolicy policy,
+                        LocalDateTime startedAt, LocalDateTime endedAt,
+                        BoardStatus status, String updatedBy) {
+        this.title = title;
+        this.policy = policy;
+        this.startedAt = startedAt;
+        this.endedAt = endedAt;
+        this.status = status;
+        this.updatedBy = updatedBy;
     }
 }

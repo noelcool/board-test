@@ -2,6 +2,7 @@ package noel.example.board.service.admin;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import noel.example.board.exception.BusinessException;
 import noel.example.board.model.dto.AdminBoardDto;
 import noel.example.board.persistence.entity.Board;
 import noel.example.board.persistence.entity.model.BoardPolicy;
@@ -12,6 +13,8 @@ import noel.example.board.web.request.admin.AdminBoardUpdateRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import static noel.example.board.exception.ErrorCode.NON_EXISTENT_BOARD;
 
 @Service
 @AllArgsConstructor
@@ -40,7 +43,24 @@ public class AdminBoardService {
     }
 
     public AdminBoardDto updateBoard(Long boardId, AdminBoardUpdateRequest request, Long adminNo) {
-        return null;
+        var board = boardRepository.findById(boardId)
+                .orElseThrow(() -> new BusinessException(NON_EXISTENT_BOARD));
+
+        var policy = BoardPolicy.builder()
+                .isReplyEnabled(request.policy().isReplyEnabled())
+                .isCommentEnabled(request.policy().isCommentEnabled())
+                .commentPolicy(new BoardPolicy.CommentPolicy(request.policy().commentPolicy()))
+                .build();
+
+        board.update(
+                request.title(),
+                policy,
+                request.startedAt(),
+                request.endedAt(),
+                request.status(),
+                adminNo.toString()
+        );
+        return new AdminBoardDto(board);
     }
 
     public void deleteBoard(Long boardId, Long adminNo) {
