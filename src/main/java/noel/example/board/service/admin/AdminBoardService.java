@@ -65,7 +65,7 @@ public class AdminBoardService {
     }
 
     @Transactional
-    public void deleteBoard(Long boardId, Long adminNo) {
+    public void disableBoard(Long boardId, Long adminNo) {
         var board = boardRepository.findById(boardId)
                 .orElseThrow(() -> new BusinessException(NON_EXISTENT_BOARD));
         board.delete(adminNo.toString());

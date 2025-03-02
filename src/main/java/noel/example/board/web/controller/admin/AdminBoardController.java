@@ -53,10 +53,10 @@ public class AdminBoardController {
      * 관리자 - 게시판 미사용 상태로 수정
      */
     @DeleteMapping("/{boardId}")
-    public ApiResponse<Void> deleteBoard(
+    public ApiResponse<Void> disableBoard(
             @PathVariable("boardId") Long boardId,
             @Admin Long adminNo) {
-        adminBoardService.deleteBoard(boardId, adminNo);
+        adminBoardService.disableBoard(boardId, adminNo);
         return new ApiResponse<>(BOARD_UPDATE_NOT_USE, null);
     }
 
