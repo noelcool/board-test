@@ -28,7 +28,7 @@ public record BoardPolicy(
             int maxDailyPerUser
     ) {
 
-        public CommentPolicy(BoardPolicyDto.CommentPolicy policy) {
+        public CommentPolicy(BoardPolicyDto.CommentPolicyDto policy) {
             this(
                     policy.hasPerCommentLimit(),
                     policy.hasDailyUserLimit(),

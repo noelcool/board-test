@@ -1,6 +1,7 @@
 package noel.example.board.model.dto;
 
 import noel.example.board.model.type.BoardStatus;
+import noel.example.board.persistence.entity.Board;
 
 import java.time.LocalDateTime;
 
@@ -27,4 +28,19 @@ public record AdminBoardDto(
         String createdBy,
         String updatedBy
 ) {
+
+    public AdminBoardDto(Board board) {
+        this(
+                board.getId(),
+                board.getTitle(),
+                new BoardPolicyDto(board.getPolicy()),
+                board.getStartedAt(),
+                board.getEndedAt(),
+                board.getStatus(),
+                board.getCreatedAt(),
+                board.getUpdatedAt(),
+                board.getCreatedBy(),
+                board.getUpdatedBy()
+        );
+    }
 }
