@@ -72,10 +72,13 @@ public class AdminBoardService {
     }
 
     public AdminBoardDto findBoard(Long boardId) {
-        return null;
+        var board = boardRepository.findById(boardId)
+                .orElseThrow(() -> new BusinessException(NON_EXISTENT_BOARD));
+        return new AdminBoardDto(board);
     }
 
     public Page<AdminBoardDto> searchBoard(AdminBoardSearchRequest request, Pageable pageable) {
+
         return null;
     }
 }
