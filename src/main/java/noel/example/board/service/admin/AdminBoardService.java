@@ -7,6 +7,7 @@ import noel.example.board.model.dto.AdminBoardDto;
 import noel.example.board.persistence.entity.Board;
 import noel.example.board.persistence.entity.model.BoardPolicy;
 import noel.example.board.persistence.repository.BoardRepository;
+import noel.example.board.service.search.AdminBoardSearchSpecification;
 import noel.example.board.web.request.admin.AdminBoardCreateRequest;
 import noel.example.board.web.request.admin.AdminBoardSearchRequest;
 import noel.example.board.web.request.admin.AdminBoardUpdateRequest;
@@ -78,7 +79,8 @@ public class AdminBoardService {
     }
 
     public Page<AdminBoardDto> searchBoard(AdminBoardSearchRequest request, Pageable pageable) {
-
-        return null;
+        var search = AdminBoardSearchSpecification.search(request);
+        var boards = boardRepository.findAll(search, pageable);
+        return boards.map(AdminBoardDto::new);
     }
 }

@@ -280,11 +280,10 @@ class AdminBoardControllerTest {
         var now = LocalDateTime.now().toString();
         mockMvc.perform(get(BASE_URI + "/list")
                         .contentType(APPLICATION_JSON)
-                        .queryParam("boardStatus", BoardStatus.ENABLED.toString())
+                        .queryParam("status", BoardStatus.ENABLED.toString())
                         .queryParam("startedAt", now)
                         .queryParam("endedAt", now)
-                        .queryParam("searchKey", AdminBoardSearchRequest.AdminBoardSearchKey.NAME.toString())
-                        .queryParam("searchValue", "검색값")
+                        .queryParam("title", "제목")
                         .queryParam("page", "1")
                         .queryParam("size", "10")
                         .queryParam("sort", "id.desc")
@@ -299,11 +298,10 @@ class AdminBoardControllerTest {
                                 headerWithName(ADMIN_NO).description(ADMIN_NO_DESCRIPTION)
                         ),
                         queryParameters(
-                                parameterWithName("boardStatus").description("게시판 상태"),
+                                parameterWithName("status").description("게시판 상태"),
                                 parameterWithName("startedAt").description("시작일 (YYYY-MM-DD)"),
                                 parameterWithName("endedAt").description("종료일 (YYYY-MM-DD)"),
-                                parameterWithName("searchKey").description("검색 키"),
-                                parameterWithName("searchValue").description("검색 값"),
+                                parameterWithName("title").description("제목"),
                                 parameterWithName("page").description("페이지 번호"),
                                 parameterWithName("size").description("페이지 크기"),
                                 parameterWithName("sort").description("정렬")
