@@ -2,12 +2,9 @@ package noel.example.board.service.admin;
 
 import lombok.RequiredArgsConstructor;
 import noel.example.board.model.dto.CommentDto;
-import noel.example.board.model.type.CommentStatus;
 import noel.example.board.web.request.admin.AdminCommentCreateRequest;
 import noel.example.board.web.request.admin.AdminCommentUpdateRequest;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
