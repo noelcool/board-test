@@ -31,7 +31,7 @@ public class AdminBoardController {
      */
     @PostMapping
     public ApiResponse<AdminBoardCreateVm> createBoard(
-            @Valid @RequestBody AdminBoardCreateRequest request,
+            @RequestBody AdminBoardCreateRequest request,
             @Admin Long adminNo) {
         var dto = adminBoardService.createBoard(request, adminNo);
         return new ApiResponse<>(null, new AdminBoardCreateVm(dto));

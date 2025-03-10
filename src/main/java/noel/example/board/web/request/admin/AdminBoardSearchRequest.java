@@ -5,16 +5,9 @@ import noel.example.board.model.type.BoardStatus;
 import java.time.LocalDateTime;
 
 public record AdminBoardSearchRequest(
-        BoardStatus boardStatus,
+        BoardStatus status,
         LocalDateTime startedAt,
         LocalDateTime endedAt,
-        AdminBoardSearchKey searchKey,
-        String searchValue
+        String title
 ) {
-
-    public enum AdminBoardSearchKey {
-        NAME
-        ;
-    }
-
 }
