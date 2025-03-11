@@ -9,8 +9,7 @@ public record UserBoardCommentSearchVm(
         Long parentId,
         String text,
         String createdBy,
-        LocalDateTime createdAt,
-        LocalDateTime updatedAt
+        LocalDateTime createdAt
 ) {
 
     public UserBoardCommentSearchVm(CommentDto dto) {
@@ -19,8 +18,7 @@ public record UserBoardCommentSearchVm(
                 dto.parentId(),
                 dto.text(),
                 dto.createdBy(),
-                dto.createdAt(),
-                dto.updatedAt()
+                dto.createdAt()
         );
     }
 }

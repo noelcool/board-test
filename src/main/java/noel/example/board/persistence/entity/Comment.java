@@ -18,14 +18,17 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "parentId", nullable = true)
+    @Column(name = "board_id", nullable = false)
+    private Long boardId;
+
+    @Column(name = "parentId")
     private Long parentId;
 
     @Column(name = "text", nullable = false)
     private String text;
 
-    @Column(name = "blocked_status", nullable = false)
-    private boolean blockedStatus = false;
+    @Column(name = "status", nullable = false)
+    private boolean status;
 
     @CreatedBy
     @Column(name = "created_by", nullable = false, updatable = false)

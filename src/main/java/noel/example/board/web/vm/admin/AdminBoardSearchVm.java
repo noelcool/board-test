@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
  * createdBy - 생성자
  * updatedBy - 수정자
  */
-public record AdminBoardSearchVM(
+public record AdminBoardSearchVm(
         Long id,
         String title,
         BoardPolicyDto policy,
@@ -31,7 +31,7 @@ public record AdminBoardSearchVM(
         String updatedBy
 ) {
 
-    public AdminBoardSearchVM(AdminBoardDto dto) {
+    public AdminBoardSearchVm(AdminBoardDto dto) {
         this(
                 dto.id(),
                 dto.title(),
