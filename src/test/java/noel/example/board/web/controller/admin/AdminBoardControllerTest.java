@@ -5,6 +5,7 @@ import noel.example.board.config.ControllerTestAnnotation;
 import noel.example.board.fixture.TestFixture;
 import noel.example.board.model.type.BoardStatus;
 import noel.example.board.service.admin.AdminBoardService;
+import noel.example.board.service.admin.AdminCommentService;
 import noel.example.board.web.request.admin.AdminBoardCreateRequest;
 import noel.example.board.web.request.admin.AdminBoardSearchRequest;
 import noel.example.board.web.request.admin.AdminBoardUpdateRequest;
@@ -51,6 +52,9 @@ class AdminBoardControllerTest {
 
     @MockitoBean
     AdminBoardService adminBoardService;
+
+    @MockitoBean
+    AdminCommentService adminCommentService;
 
     private final String BASE_URI = "/v1/admin/board";
 
@@ -264,6 +268,68 @@ class AdminBoardControllerTest {
                                 fieldWithPath("updatedAt").type(STRING).description("수정일"),
                                 fieldWithPath("createdBy").type(STRING).description("생성자"),
                                 fieldWithPath("updatedBy").type(STRING).description("수정자")
+                        )
+                ));
+
+    }
+
+    @Test
+    @DisplayName("관리자 - 게시판 1개의 댓글 목록 조회")
+    void findComments() throws Exception {
+
+        var adminCommentDtos = List.of(TestFixture.getCommentDto());
+
+        when(adminCommentService.findCommentsByBoardId(anyLong(), any(Pageable.class)))
+                .thenReturn(new PageImpl<>(adminCommentDtos, PageRequest.of(1, 10), adminCommentDtos.size()));
+
+        mockMvc.perform(get(BASE_URI + "/{boardId}/comments", 1L)
+                        .contentType(APPLICATION_JSON)
+                        .queryParam("page", "1")
+                        .queryParam("size", "10")
+                        .queryParam("sort", "id.desc")
+                        .header(ADMIN_NO, 1L)
+                )
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(status().isOk())
+                .andDo(document("admin-board-comments",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        requestHeaders(
+                                headerWithName(ADMIN_NO).description(ADMIN_NO_DESCRIPTION)
+                        ),
+                        pathParameters(
+                                parameterWithName("boardId").description("게시판 아이디")
+                        ),
+                        responseFields(
+                                beneathPath("data"),
+                                fieldWithPath("content[].id").type(NUMBER).description("아이디"),
+                                fieldWithPath("content[].parentId").type(NUMBER).description("부모 댓글 아이디").optional(),
+                                fieldWithPath("content[].text").type(STRING).description("이름"),
+                                fieldWithPath("content[].status").type(BOOLEAN).description("댓글 상태"),
+                                fieldWithPath("content[].createdAt").type(STRING).description("생성일"),
+                                fieldWithPath("content[].createdBy").type(STRING).description("생성자"),
+                                fieldWithPath("pageable").type(OBJECT).description("pageable"),
+                                fieldWithPath("pageable.pageNumber").type(NUMBER).description("현재 페이지 번호"),
+                                fieldWithPath("pageable.pageSize").type(NUMBER).description("페이지 크기"),
+                                fieldWithPath("pageable.sort").type(OBJECT).description("정렬 정보"),
+                                fieldWithPath("pageable.sort.empty").type(BOOLEAN).description("정렬 비어있는지 여부"),
+                                fieldWithPath("pageable.sort.unsorted").type(BOOLEAN).description("정렬되지 않음 여부"),
+                                fieldWithPath("pageable.sort.sorted").type(BOOLEAN).description("정렬 여부"),
+                                fieldWithPath("pageable.offset").type(NUMBER).description("오프셋"),
+                                fieldWithPath("pageable.paged").type(BOOLEAN).description("페이징 여부"),
+                                fieldWithPath("pageable.unpaged").type(BOOLEAN).description("비페이징 여부"),
+                                fieldWithPath("last").type(BOOLEAN).description("마지막 페이지 여부"),
+                                fieldWithPath("totalElements").type(NUMBER).description("전체 요소 수"),
+                                fieldWithPath("totalPages").type(NUMBER).description("전체 페이지 수"),
+                                fieldWithPath("first").type(BOOLEAN).description("첫 페이지 여부"),
+                                fieldWithPath("size").type(NUMBER).description("현재 페이지의 크기"),
+                                fieldWithPath("number").type(NUMBER).description("페이지 번호"),
+                                fieldWithPath("sort").type(OBJECT).description("정렬 정보"),
+                                fieldWithPath("sort.empty").type(BOOLEAN).description("정렬 비어있는지 여부"),
+                                fieldWithPath("sort.unsorted").type(BOOLEAN).description("정렬되지 않음 여부"),
+                                fieldWithPath("sort.sorted").type(BOOLEAN).description("정렬 여부"),
+                                fieldWithPath("numberOfElements").type(NUMBER).description("현재 페이지의 요소 수"),
+                                fieldWithPath("empty").type(BOOLEAN).description("비어있는 페이지 여부")
                         )
                 ));
 
