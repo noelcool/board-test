@@ -16,6 +16,10 @@ operation::admin-board-disable[]
 
 operation::admin-board-find-one[]
 
+== 게시판 1개의 모든 댓글 목록 조회
+
+operation::admin-board-comments[]
+
 == 게시판 목록 조회
 
 operation::admin-board-search[]

@@ -1,10 +1,9 @@
 package noel.example.board.fixture;
 
-import noel.example.board.model.type.BoardStatus;
 import noel.example.board.model.dto.AdminBoardDto;
 import noel.example.board.model.dto.BoardPolicyDto;
 import noel.example.board.model.dto.CommentDto;
-import noel.example.board.model.type.CommentStatus;
+import noel.example.board.model.type.BoardStatus;
 
 import java.time.LocalDateTime;
 
@@ -47,10 +46,9 @@ public class TestFixture {
                 1L,
                 null,
                 "text",
-                CommentStatus.NULL,
+                true,
                 "김모카",
-                LocalDateTime.now(),
-                null
+                LocalDateTime.now()
         );
     }
 }

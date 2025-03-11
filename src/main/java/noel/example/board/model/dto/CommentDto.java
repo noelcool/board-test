@@ -1,6 +1,6 @@
 package noel.example.board.model.dto;
 
-import noel.example.board.model.type.CommentStatus;
+import noel.example.board.persistence.entity.Comment;
 
 import java.time.LocalDateTime;
 
@@ -8,9 +8,19 @@ public record CommentDto(
         long id,
         Long parentId,
         String text,
-        CommentStatus status,
+        boolean status,
         String createdBy,
-        LocalDateTime createdAt,
-        LocalDateTime updatedAt
+        LocalDateTime createdAt
 ) {
+
+    public CommentDto(Comment comment) {
+        this(
+                comment.getId(),
+                comment.getParentId(),
+                comment.getText(),
+                comment.isStatus(),
+                comment.getCreatedBy(),
+                comment.getCreatedAt()
+        );
+    }
 }
