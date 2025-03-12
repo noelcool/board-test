@@ -46,7 +46,7 @@ public class AdminCommentService {
      * 관리자 - 게시판 1개의 모든 댓글 목록 조회
      */
     public Page<CommentDto> findCommentsByBoardId(Long boardId, Pageable pageable) {
-        var boards = commentRepository.findAllByBoardId(boardId, pageable);
+        var boards = commentRepository.findAllByBoardIdAndParentIdIsNull(boardId, pageable);
         return boards.map(CommentDto::new);
     }
 
