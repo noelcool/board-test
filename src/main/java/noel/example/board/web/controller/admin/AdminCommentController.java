@@ -8,7 +8,11 @@ import noel.example.board.web.request.admin.AdminCommentCreateRequest;
 import noel.example.board.web.request.admin.AdminCommentUpdateRequest;
 import noel.example.board.web.vm.admin.AdminCommentCreateVm;
 import noel.example.board.web.vm.admin.AdminCommentUpdateVm;
+import noel.example.board.web.vm.admin.AdminCommentVm;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 import static noel.example.board.model.constant.ResponseConstant.COMMENT_BLIND_COMPLETE;
 import static noel.example.board.model.constant.ResponseConstant.COMMENT_DELETE_COMPLETE;
@@ -19,6 +23,28 @@ import static noel.example.board.model.constant.ResponseConstant.COMMENT_DELETE_
 public class AdminCommentController {
 
     private final AdminCommentService adminCommentService;
+
+    /**
+     * 관리자 - 댓글/답글 단건 조회
+     */
+    @GetMapping("/{commentId}")
+    public ApiResponse<AdminCommentVm> findComment(
+            @PathVariable("commentId") Long commentId,
+            @Admin Long adminNo) {
+        var dto = adminCommentService.findComment(commentId);
+        return new ApiResponse<>(null, new AdminCommentVm(dto));
+    }
+
+    /**
+     * 관리자 - 댓글 하나의 답글 목록 조회
+     */
+    @GetMapping("/{commentId}/replies")
+    public ApiResponse<Page<AdminCommentVm>> findReplies(
+            @PathVariable("commentId") Long commentId,
+            @Admin Long adminNo) {
+        var dto = adminCommentService.findReplies(commentId);
+        return new ApiResponse<>(null, dto.map(AdminCommentVm::new));
+    }
 
     /**
      * 관리자 - 댓글/답글 생성

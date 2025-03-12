@@ -16,6 +16,20 @@ public class AdminCommentService {
     private final CommentRepository commentRepository;
 
     /**
+     * 관리자 - 댓글/답글 단건 조회
+     */
+    public CommentDto findComment(Long commentId) {
+        return null;
+    }
+
+    /**
+     * 관리자 - 댓글 하나의 답글 목록 조회
+     */
+    public Page<CommentDto> findReplies(Long commentId) {
+        return null;
+    }
+
+    /**
      * 관리자 - 댓글 생성
      */
     public CommentDto createComment(AdminCommentCreateRequest request, Long adminNo) {
