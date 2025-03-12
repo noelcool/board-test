@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Long>, JpaSpecificationExecutor<Comment> {
 
-    Page<Comment> findAllByBoardId(Long boardId, Pageable pageable);
+    Page<Comment> findAllByBoardIdAndParentIdIsNull(Long boardId, Pageable pageable);
 
 }
