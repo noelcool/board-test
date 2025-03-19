@@ -9,7 +9,6 @@ import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
@@ -51,12 +50,16 @@ public class Comment {
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    @LastModifiedBy
-    @Column(name = "updated_by", nullable = false, updatable = false)
-    private String updatedBy;
-
     @LastModifiedDate
     @Column(name = "updated_at", nullable = false, updatable = false)
     private LocalDateTime updatedAt;
+
+    @Builder
+    public Comment(Long boardId, Long parentId, String text, String createdBy) {
+        this.boardId = boardId;
+        this.parentId = parentId;
+        this.text = text;
+        this.createdBy = createdBy;
+    }
 
 }

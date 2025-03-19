@@ -55,9 +55,10 @@ public class AdminCommentController {
      */
     @PostMapping("/{boardId}")
     public ApiResponse<AdminCommentCreateVm> createComment(
+            @PathVariable("boardId") Long boardId,
             @RequestBody AdminCommentCreateRequest request,
             @Admin Long adminNo) {
-        var dto = adminCommentService.createComment(request, adminNo);
+        var dto = adminCommentService.createComment(boardId, request, adminNo);
         return new ApiResponse<>(null, new AdminCommentCreateVm(dto));
     }
 
