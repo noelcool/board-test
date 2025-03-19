@@ -165,7 +165,7 @@ class AdminCommentControllerTest {
 
         var commentDto = TestFixture.getCommentDto();
 
-        when(adminCommentService.createComment(any(AdminCommentCreateRequest.class), anyLong()))
+        when(adminCommentService.createComment(anyLong(), any(AdminCommentCreateRequest.class), anyLong()))
                 .thenReturn(commentDto);
 
         mockMvc.perform(post(BASE_URI + "/{boardId}", 1L)
@@ -180,6 +180,9 @@ class AdminCommentControllerTest {
                         preprocessResponse(prettyPrint()),
                         requestHeaders(
                                 headerWithName(ADMIN_NO).description(ADMIN_NO_DESCRIPTION)
+                        ),
+                        pathParameters(
+                                parameterWithName("boardId").description("게시판 아이디")
                         ),
                         requestFields(
                                 fieldWithPath("parentId").optional().type(NUMBER).description("부모 댓글 아이디"),
