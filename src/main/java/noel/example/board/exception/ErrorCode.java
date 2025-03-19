@@ -11,7 +11,8 @@ public enum ErrorCode {
 
 
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "서버에 오류가 발생했습니다"),
-    NON_EXISTENT_BOARD(HttpStatus.NOT_FOUND, "존재하지 않는 게시판입니다.")
+    NON_EXISTENT_BOARD(HttpStatus.NOT_FOUND, "존재하지 않는 게시판입니다."),
+    NON_EXISTENT_COMMENT(HttpStatus.NOT_FOUND, "존재하지 않는 댓글/답글 입니다.")
     ;
 
     public final HttpStatus httpStatus;

@@ -1,13 +1,17 @@
 package noel.example.board.service.admin;
 
 import lombok.RequiredArgsConstructor;
+import noel.example.board.exception.BusinessException;
 import noel.example.board.model.dto.CommentDto;
+import noel.example.board.persistence.entity.Comment;
 import noel.example.board.persistence.repository.CommentRepository;
 import noel.example.board.web.request.admin.AdminCommentCreateRequest;
 import noel.example.board.web.request.admin.AdminCommentUpdateRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import static noel.example.board.exception.ErrorCode.NON_EXISTENT_COMMENT;
 
 @Service
 @RequiredArgsConstructor
@@ -19,7 +23,9 @@ public class AdminCommentService {
      * 관리자 - 댓글/답글 단건 조회
      */
     public CommentDto findComment(Long commentId) {
-        return null;
+        var comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new BusinessException(NON_EXISTENT_COMMENT));
+        return new CommentDto(comment);
     }
 
     /**
