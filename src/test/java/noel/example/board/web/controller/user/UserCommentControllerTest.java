@@ -84,7 +84,7 @@ class UserCommentControllerTest {
                                 fieldWithPath("parentId").optional().type(NUMBER).description("부모 댓글 아이디"),
                                 fieldWithPath("text").type(STRING).description("댓글/답글 내용"),
                                 fieldWithPath("createdBy").type(STRING).description("생성자"),
-                                fieldWithPath("createdAt").type(STRING).description("생성일"),
+                                fieldWithPath("createdAt").type(STRING).description("생성일시"),
                                 fieldWithPath("updatedAt").optional().type(STRING).description("수정일")
                         )
                 ));
@@ -126,7 +126,7 @@ class UserCommentControllerTest {
                                 fieldWithPath("parentId").optional().type(NUMBER).description("부모 댓글 아이디"),
                                 fieldWithPath("text").type(STRING).description("댓글/답글 내용"),
                                 fieldWithPath("createdBy").type(STRING).description("생성자"),
-                                fieldWithPath("createdAt").type(STRING).description("생성일"),
+                                fieldWithPath("createdAt").type(STRING).description("생성일시"),
                                 fieldWithPath("updatedAt").optional().type(STRING).description("수정일")
                         )
                 ));

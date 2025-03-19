@@ -47,6 +47,8 @@ public class TestFixture {
                 null,
                 "text",
                 "김모카",
+                LocalDateTime.now(),
+                1L,
                 LocalDateTime.now()
         );
     }

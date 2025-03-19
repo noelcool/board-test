@@ -11,7 +11,10 @@ public record CommentDto(
         Long parentId,
         String text,
         String createdBy,
-        LocalDateTime createdAt
+        LocalDateTime createdAt,
+        Long blindAdminNo,
+        LocalDateTime blindedAt
+
 ) {
 
     public CommentDto(Comment comment) {
@@ -20,7 +23,9 @@ public record CommentDto(
                 comment.getParentId(),
                 comment.isBlinded() ? BLIND_COMMENT : comment.getText(),
                 comment.getCreatedBy(),
-                comment.getCreatedAt()
+                comment.getCreatedAt(),
+                comment.getBlindDetail().adminNo(),
+                comment.getBlindDetail().blindedAt()
         );
     }
 }

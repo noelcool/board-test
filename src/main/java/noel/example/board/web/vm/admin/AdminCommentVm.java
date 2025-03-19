@@ -9,7 +9,9 @@ public record AdminCommentVm(
         Long parentId,
         String text,
         String createdBy,
-        LocalDateTime createdAt
+        LocalDateTime createdAt,
+        Long blindAdminNo,
+        LocalDateTime blindedAt
 ) {
 
     public AdminCommentVm(CommentDto dto) {
@@ -18,7 +20,9 @@ public record AdminCommentVm(
                 dto.parentId(),
                 dto.text(),
                 dto.createdBy(),
-                dto.createdAt()
+                dto.createdAt(),
+                dto.blindAdminNo(),
+                dto.blindedAt()
         );
     }
 }
