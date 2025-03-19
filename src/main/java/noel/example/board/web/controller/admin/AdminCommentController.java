@@ -10,6 +10,9 @@ import noel.example.board.web.vm.admin.AdminCommentCreateVm;
 import noel.example.board.web.vm.admin.AdminCommentUpdateVm;
 import noel.example.board.web.vm.admin.AdminCommentVm;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,8 +44,9 @@ public class AdminCommentController {
     @GetMapping("/{commentId}/replies")
     public ApiResponse<Page<AdminCommentVm>> findReplies(
             @PathVariable("commentId") Long commentId,
-            @Admin Long adminNo) {
-        var dto = adminCommentService.findReplies(commentId);
+            @Admin Long adminNo,
+            @PageableDefault(page = 1, size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+        var dto = adminCommentService.findReplies(commentId, pageable);
         return new ApiResponse<>(null, dto.map(AdminCommentVm::new));
     }
 

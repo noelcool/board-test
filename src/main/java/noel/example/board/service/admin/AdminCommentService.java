@@ -3,7 +3,6 @@ package noel.example.board.service.admin;
 import lombok.RequiredArgsConstructor;
 import noel.example.board.exception.BusinessException;
 import noel.example.board.model.dto.CommentDto;
-import noel.example.board.persistence.entity.Comment;
 import noel.example.board.persistence.repository.CommentRepository;
 import noel.example.board.web.request.admin.AdminCommentCreateRequest;
 import noel.example.board.web.request.admin.AdminCommentUpdateRequest;
@@ -31,8 +30,9 @@ public class AdminCommentService {
     /**
      * 관리자 - 댓글 하나의 답글 목록 조회
      */
-    public Page<CommentDto> findReplies(Long commentId) {
-        return null;
+    public Page<CommentDto> findReplies(Long commentId, Pageable pageable) {
+        var comments = commentRepository.findAllByParentIdAndIsDeletedIsFalse(commentId, pageable);
+        return comments.map(CommentDto::new);
     }
 
     /**
@@ -66,7 +66,7 @@ public class AdminCommentService {
      * 관리자 - 게시판 1개의 모든 댓글 목록 조회
      */
     public Page<CommentDto> findCommentsByBoardId(Long boardId, Pageable pageable) {
-        var boards = commentRepository.findAllByBoardIdAndParentIdIsNull(boardId, pageable);
+        var boards = commentRepository.findAllByBoardIdAndParentIdIsNullAndIsDeletedIsFalse(boardId, pageable);
         return boards.map(CommentDto::new);
     }
 

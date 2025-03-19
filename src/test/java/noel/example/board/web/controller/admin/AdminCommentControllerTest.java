@@ -81,7 +81,6 @@ class AdminCommentControllerTest {
                                 fieldWithPath("id").type(NUMBER).description("아이디"),
                                 fieldWithPath("parentId").optional().type(NUMBER).description("부모 댓글 아이디"),
                                 fieldWithPath("text").type(STRING).description("댓글/답글 내용"),
-                                fieldWithPath("status").type(BOOLEAN).description("댓글 상태"),
                                 fieldWithPath("createdBy").type(STRING).description("생성자"),
                                 fieldWithPath("createdAt").type(STRING).description("생성일"),
                                 fieldWithPath("updatedAt").optional().type(STRING).description("수정일")
@@ -95,11 +94,14 @@ class AdminCommentControllerTest {
     void findReplies() throws Exception {
 
         var commentDtos = List.of(TestFixture.getCommentDto());
-        when(adminCommentService.findReplies(anyLong()))
+        when(adminCommentService.findReplies(anyLong(), any()))
                 .thenReturn(new PageImpl<>(commentDtos, PageRequest.of(1, 10), commentDtos.size()));
 
         mockMvc.perform(get(BASE_URI + "/{commentId}/replies", 1L)
                         .contentType(APPLICATION_JSON)
+                        .queryParam("page", "1")
+                        .queryParam("size", "10")
+                        .queryParam("sort", "id.desc")
                         .header(ADMIN_NO, 1L)
                 )
                 .andDo(MockMvcResultHandlers.print())
@@ -118,7 +120,6 @@ class AdminCommentControllerTest {
                                 fieldWithPath("content[].id").type(NUMBER).description("아이디"),
                                 fieldWithPath("content[].parentId").optional().type(NUMBER).description("부모 댓글 아이디"),
                                 fieldWithPath("content[].text").type(STRING).description("댓글/답글 내용"),
-                                fieldWithPath("content[].status").type(BOOLEAN).description("댓글 상태"),
                                 fieldWithPath("content[].createdBy").type(STRING).description("생성자"),
                                 fieldWithPath("content[].createdAt").type(STRING).description("생성일"),
                                 fieldWithPath("content[].updatedAt").optional().type(STRING).description("수정일"),
