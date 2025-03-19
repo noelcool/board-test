@@ -8,7 +8,6 @@ public record AdminCommentVm(
         long id,
         Long parentId,
         String text,
-        boolean status,
         String createdBy,
         LocalDateTime createdAt
 ) {
@@ -18,7 +17,6 @@ public record AdminCommentVm(
                 dto.id(),
                 dto.parentId(),
                 dto.text(),
-                dto.status(),
                 dto.createdBy(),
                 dto.createdAt()
         );

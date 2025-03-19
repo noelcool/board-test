@@ -305,7 +305,6 @@ class AdminBoardControllerTest {
                                 fieldWithPath("content[].id").type(NUMBER).description("아이디"),
                                 fieldWithPath("content[].parentId").type(NUMBER).description("부모 댓글 아이디").optional(),
                                 fieldWithPath("content[].text").type(STRING).description("이름"),
-                                fieldWithPath("content[].status").type(BOOLEAN).description("댓글 상태"),
                                 fieldWithPath("content[].createdAt").type(STRING).description("생성일"),
                                 fieldWithPath("content[].createdBy").type(STRING).description("생성자"),
                                 fieldWithPath("pageable").type(OBJECT).description("pageable"),
