@@ -27,8 +27,11 @@ public class Comment {
     @Column(name = "text", nullable = false)
     private String text;
 
-    @Column(name = "status", nullable = false)
-    private boolean status;
+    @Column(name = "is_deleted", nullable = false)
+    private boolean isDeleted = false;
+
+    @Column(name = "is_blinded", nullable = false)
+    private boolean isBlinded = false;
 
     @CreatedBy
     @Column(name = "created_by", nullable = false, updatable = false)
