@@ -3,6 +3,9 @@ package noel.example.board.persistence.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import noel.example.board.persistence.entity.model.BlindDetail;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 
@@ -32,6 +35,10 @@ public class Comment {
 
     @Column(name = "is_blinded", nullable = false)
     private boolean isBlinded = false;
+
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(name = "blind_detail")
+    private BlindDetail blindDetail = BlindDetail.DEFAULT;
 
     @CreatedBy
     @Column(name = "created_by", nullable = false, updatable = false)
