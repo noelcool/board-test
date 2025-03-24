@@ -266,16 +266,39 @@ class AdminCommentControllerTest {
 
     @Test
     @DisplayName("관리자 - 댓글/답글 차단")
-    void blindComment() throws Exception {
-        doNothing().when(adminCommentService).blindComment(anyLong(), anyLong());
+    void blockComment() throws Exception {
+        doNothing().when(adminCommentService).blockComment(anyLong(), anyLong());
 
-        mockMvc.perform(post(BASE_URI + "/blind/{commentId}", 1L)
+        mockMvc.perform(post(BASE_URI + "/block/{commentId}", 1L)
                         .contentType(APPLICATION_JSON)
                         .header(ADMIN_NO, 1L)
                 )
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk())
-                .andDo(document("admin-comment-blind",
+                .andDo(document("admin-comment-block",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        requestHeaders(
+                                headerWithName(ADMIN_NO).description(ADMIN_NO_DESCRIPTION)
+                        ),
+                        pathParameters(
+                                parameterWithName("commentId").description("댓글/답글 아이디")
+                        )
+                ));
+    }
+
+    @Test
+    @DisplayName("관리자 - 댓글/답글 차단 해제")
+    void unblockComment() throws Exception {
+        doNothing().when(adminCommentService).blockComment(anyLong(), anyLong());
+
+        mockMvc.perform(post(BASE_URI + "/unblock/{commentId}", 1L)
+                        .contentType(APPLICATION_JSON)
+                        .header(ADMIN_NO, 1L)
+                )
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(status().isOk())
+                .andDo(document("admin-comment-unblock",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         requestHeaders(

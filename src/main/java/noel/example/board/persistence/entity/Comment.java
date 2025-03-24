@@ -75,7 +75,8 @@ public class Comment {
         this.isDeleted = true;
     }
 
-    public void blind(Long adminNo) {
+    public void block(Long adminNo, boolean blindStatus) {
+        this.isBlinded = blindStatus;
         this.blindDetail = new BlindDetail(adminNo, LocalDateTime.now());
     }
 

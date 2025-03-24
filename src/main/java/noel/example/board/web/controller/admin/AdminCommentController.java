@@ -15,8 +15,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 import static noel.example.board.model.constant.ResponseConstant.COMMENT_BLIND_COMPLETE;
 import static noel.example.board.model.constant.ResponseConstant.COMMENT_DELETE_COMPLETE;
 
@@ -88,11 +86,22 @@ public class AdminCommentController {
     /**
      * 관리자 - 댓글/답글 차단
      */
-    @PostMapping("/blind/{commentId}")
-    public ApiResponse<Void> blindComment(
+    @PostMapping("/block/{commentId}")
+    public ApiResponse<Void> blockComment(
             @PathVariable("commentId") Long commentId,
             @Admin Long adminNo) {
-        adminCommentService.blindComment(commentId, adminNo);
+        adminCommentService.blockComment(commentId, adminNo);
+        return new ApiResponse<>(COMMENT_BLIND_COMPLETE, null);
+    }
+
+    /**
+     * 관리자 - 댓글/답글 차단 해제
+     */
+    @PostMapping("/unblock/{commentId}")
+    public ApiResponse<Void> unblockComment(
+            @PathVariable("commentId") Long commentId,
+            @Admin Long adminNo) {
+        adminCommentService.unblockComment(commentId, adminNo);
         return new ApiResponse<>(COMMENT_BLIND_COMPLETE, null);
     }
 

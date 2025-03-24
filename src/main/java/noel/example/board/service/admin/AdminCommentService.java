@@ -81,10 +81,19 @@ public class AdminCommentService {
     /**
      * 관리자 - 댓글/답글 차단
      */
-    public void blindComment(Long commentId, Long adminNo) {
+    public void blockComment(Long commentId, Long adminNo) {
         var comment = commentRepository.findByIdAndCreatedNo(commentId, adminNo)
                 .orElseThrow(() -> new BusinessException(NON_EXISTENT_COMMENT));
-        comment.blind(adminNo);
+        comment.block(adminNo, true);
+    }
+
+    /**
+     * 관리자 - 댓글/답글 차단 해제
+     */
+    public void unblockComment(Long commentId, Long adminNo) {
+        var comment = commentRepository.findByIdAndCreatedNo(commentId, adminNo)
+                .orElseThrow(() -> new BusinessException(NON_EXISTENT_COMMENT));
+        comment.block(adminNo, false);
     }
 
     /**
