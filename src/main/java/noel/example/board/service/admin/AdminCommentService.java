@@ -58,8 +58,13 @@ public class AdminCommentService {
     /**
      * 관리자 - 댓글 수정
      */
-    public CommentDto updateComment(Long commentId, AdminCommentUpdateRequest request, Long adminNo) {
-        return null;
+    @Transactional
+    public CommentDto updateComment(Long commentId, AdminCommentUpdateRequest request) {
+        var comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new BusinessException(NON_EXISTENT_COMMENT));
+        comment.update(request.text());
+        commentRepository.save(comment);
+        return new CommentDto(comment);
     }
 
     /**
