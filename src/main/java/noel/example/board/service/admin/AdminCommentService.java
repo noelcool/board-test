@@ -49,6 +49,7 @@ public class AdminCommentService {
                 .boardId(boardId)
                 .parentId(request.parentId())
                 .text(request.text())
+                .createdNo(adminNo)
                 .createdBy(adminNo.toString())
                 .build();
         commentRepository.save(comment);
@@ -59,8 +60,8 @@ public class AdminCommentService {
      * 관리자 - 댓글 수정
      */
     @Transactional
-    public CommentDto updateComment(Long commentId, AdminCommentUpdateRequest request) {
-        var comment = commentRepository.findById(commentId)
+    public CommentDto updateComment(Long commentId, AdminCommentUpdateRequest request, Long adminNo) {
+        var comment = commentRepository.findByIdAndCreatedNo(commentId, adminNo)
                 .orElseThrow(() -> new BusinessException(NON_EXISTENT_COMMENT));
         comment.update(request.text());
         commentRepository.save(comment);
@@ -71,7 +72,10 @@ public class AdminCommentService {
      * 관리자 - 댓글/답글 삭제
      */
     public void deleteComment(Long commentId, Long adminNo) {
-
+        var comment = commentRepository.findByIdAndCreatedNo(commentId, adminNo)
+                .orElseThrow(() -> new BusinessException(NON_EXISTENT_COMMENT));
+        comment.delete();
+        commentRepository.save(comment);
     }
 
     /**

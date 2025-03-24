@@ -210,7 +210,7 @@ class AdminCommentControllerTest {
 
         var commentDto = TestFixture.getCommentDto();
 
-        when(adminCommentService.updateComment(anyLong(), any()))
+        when(adminCommentService.updateComment(anyLong(), any(), anyLong()))
                 .thenReturn(commentDto);
 
         mockMvc.perform(put(BASE_URI + "/{commentId}", 1L)
