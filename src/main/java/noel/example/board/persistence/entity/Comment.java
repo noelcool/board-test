@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import noel.example.board.persistence.entity.model.BlindDetail;
+import noel.example.board.persistence.entity.model.BlockDetail;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 import org.springframework.data.annotation.CreatedBy;
@@ -12,6 +12,8 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
+
+import static noel.example.board.model.constant.CommentConstant.SYSTEM_ID;
 
 @Entity
 @Table(name = "comment")
@@ -35,12 +37,12 @@ public class Comment {
     @Column(name = "is_deleted", nullable = false)
     private boolean isDeleted = false;
 
-    @Column(name = "is_blinded", nullable = false)
-    private boolean isBlinded = false;
+    @Column(name = "is_blocked", nullable = false)
+    private boolean isBlocked = false;
 
     @JdbcTypeCode(SqlTypes.JSON)
-    @Column(name = "blind_detail")
-    private BlindDetail blindDetail = BlindDetail.DEFAULT;
+    @Column(name = "block_detail")
+    private BlockDetail blockDetail = BlockDetail.DEFAULT;
 
     @CreatedBy
     @Column(name = "created_no", nullable = false, updatable = false)
@@ -75,9 +77,14 @@ public class Comment {
         this.isDeleted = true;
     }
 
-    public void block(Long adminNo, boolean blindStatus) {
-        this.isBlinded = blindStatus;
-        this.blindDetail = new BlindDetail(adminNo, LocalDateTime.now());
+    public void block(Long adminNo, boolean blockStatus) {
+        this.isBlocked = blockStatus;
+        this.blockDetail = new BlockDetail(adminNo, adminNo.toString(), LocalDateTime.now());
+    }
+
+    public void autoBlock() {
+        this.isBlocked = true;
+        this.blockDetail = new BlockDetail(null, SYSTEM_ID, LocalDateTime.now());
     }
 
 }

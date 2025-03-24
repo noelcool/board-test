@@ -4,7 +4,7 @@ import noel.example.board.persistence.entity.Comment;
 
 import java.time.LocalDateTime;
 
-import static noel.example.board.model.constant.CommentConstant.BLIND_COMMENT;
+import static noel.example.board.model.constant.CommentConstant.BLOCK_COMMENT;
 
 public record CommentDto(
         long id,
@@ -21,9 +21,9 @@ public record CommentDto(
         this(
                 comment.getId(),
                 comment.getParentId(),
-                comment.isBlinded() ? BLIND_COMMENT : comment.getText(),
-                comment.getBlindDetail().adminNo(),
-                comment.getBlindDetail().blindedAt(),
+                comment.isBlocked() ? BLOCK_COMMENT : comment.getText(),
+                comment.getBlockDetail().adminNo(),
+                comment.getBlockDetail().blindedAt(),
                 comment.getCreatedBy(),
                 comment.getCreatedAt(),
                 comment.getUpdatedAt()
