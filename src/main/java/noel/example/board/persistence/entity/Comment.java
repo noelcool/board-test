@@ -62,4 +62,8 @@ public class Comment {
         this.createdBy = createdBy;
     }
 
+    public void update(String text) {
+        this.text = text;
+    }
+
 }

@@ -70,7 +70,7 @@ public class AdminCommentController {
             @PathVariable("commentId") Long commentId,
             @RequestBody AdminCommentUpdateRequest request,
             @Admin Long adminNo) {
-        var dto = adminCommentService.updateComment(commentId, request, adminNo);
+        var dto = adminCommentService.updateComment(commentId, request);
         return new ApiResponse<>(null, new AdminCommentUpdateVm(dto));
     }
 
