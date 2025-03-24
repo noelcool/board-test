@@ -43,6 +43,10 @@ public class Comment {
     private BlindDetail blindDetail = BlindDetail.DEFAULT;
 
     @CreatedBy
+    @Column(name = "created_no", nullable = false, updatable = false)
+    private Long createdNo;
+
+    @CreatedBy
     @Column(name = "created_by", nullable = false, updatable = false)
     private String createdBy;
 
@@ -55,15 +59,20 @@ public class Comment {
     private LocalDateTime updatedAt;
 
     @Builder
-    public Comment(Long boardId, Long parentId, String text, String createdBy) {
+    public Comment(Long boardId, Long parentId, String text, String createdBy, Long createdNo) {
         this.boardId = boardId;
         this.parentId = parentId;
         this.text = text;
         this.createdBy = createdBy;
+        this.createdNo = createdNo;
     }
 
     public void update(String text) {
         this.text = text;
+    }
+
+    public void delete() {
+        this.isDeleted = true;
     }
 
 }

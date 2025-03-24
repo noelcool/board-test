@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Long>, JpaSpecificationExecutor<Comment> {
@@ -14,4 +16,6 @@ public interface CommentRepository extends JpaRepository<Comment, Long>, JpaSpec
     Page<Comment> findAllByBoardIdAndParentIdIsNullAndIsDeletedIsFalse(Long boardId, Pageable pageable);
 
     Page<Comment> findAllByParentIdAndIsDeletedIsFalse(Long commentId, Pageable pageable);
+
+    Optional<Comment> findByIdAndCreatedNo(Long commentId, Long createdNo);
 }
