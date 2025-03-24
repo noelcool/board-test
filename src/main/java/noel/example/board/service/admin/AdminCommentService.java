@@ -82,6 +82,9 @@ public class AdminCommentService {
      * 관리자 - 댓글/답글 차단
      */
     public void blindComment(Long commentId, Long adminNo) {
+        var comment = commentRepository.findByIdAndCreatedNo(commentId, adminNo)
+                .orElseThrow(() -> new BusinessException(NON_EXISTENT_COMMENT));
+        comment.blind(adminNo);
     }
 
     /**

@@ -75,4 +75,8 @@ public class Comment {
         this.isDeleted = true;
     }
 
+    public void blind(Long adminNo) {
+        this.blindDetail = new BlindDetail(adminNo, LocalDateTime.now());
+    }
+
 }
