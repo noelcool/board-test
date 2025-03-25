@@ -3,6 +3,7 @@ package noel.example.board.service.user;
 import lombok.RequiredArgsConstructor;
 import noel.example.board.exception.BusinessException;
 import noel.example.board.model.dto.CommentDto;
+import noel.example.board.persistence.entity.Comment;
 import noel.example.board.persistence.entity.CommentLike;
 import noel.example.board.persistence.entity.CommentReport;
 import noel.example.board.persistence.repository.CommentLikeRepository;
@@ -31,8 +32,17 @@ public class UserCommentService {
         return null;
     }
 
-    public CommentDto createComment(UserCommentCreateRequest request, Long userNo) {
-        return null;
+    @Transactional
+    public CommentDto createComment(Long boardId, UserCommentCreateRequest request, Long userNo) {
+        var comment = Comment.builder()
+                .boardId(boardId)
+                .parentId(request.parentId())
+                .text(request.text())
+                .createdNo(userNo)
+                .createdBy(userNo.toString())
+                .build();
+        commentRepository.save(comment);
+        return new CommentDto(comment);
     }
 
     public CommentDto updateComment(Long commentId, UsersCommentUpdateRequest request, Long userNo) {
