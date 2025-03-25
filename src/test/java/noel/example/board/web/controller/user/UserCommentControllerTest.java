@@ -119,7 +119,6 @@ class UserCommentControllerTest {
                                 headerWithName(USER_NO).description(USER_NO_DESCRIPTION)
                         ),
                         requestFields(
-                                fieldWithPath("parentId").optional().type(NUMBER).description("부모 댓글 아이디"),
                                 fieldWithPath("text").type(STRING).description("댓글/답글 내용")
                         ),
                         responseFields(
