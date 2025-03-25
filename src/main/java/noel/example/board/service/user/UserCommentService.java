@@ -45,8 +45,12 @@ public class UserCommentService {
         return new CommentDto(comment);
     }
 
+    @Transactional
     public CommentDto updateComment(Long commentId, UsersCommentUpdateRequest request, Long userNo) {
-        return null;
+        var comment = commentRepository.findByIdAndIsDeletedIsFalseAndCreatedNo(commentId, userNo)
+                .orElseThrow(() -> new BusinessException(NON_EXISTENT_COMMENT));
+        comment.update(request.text());
+        return new CommentDto(comment);
     }
 
     @Transactional
