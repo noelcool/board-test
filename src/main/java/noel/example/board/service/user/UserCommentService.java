@@ -3,6 +3,7 @@ package noel.example.board.service.user;
 import lombok.RequiredArgsConstructor;
 import noel.example.board.exception.BusinessException;
 import noel.example.board.model.dto.CommentDto;
+import noel.example.board.persistence.entity.Comment;
 import noel.example.board.persistence.entity.CommentReport;
 import noel.example.board.persistence.repository.CommentReportRepository;
 import noel.example.board.persistence.repository.CommentRepository;
@@ -35,7 +36,11 @@ public class UserCommentService {
         return null;
     }
 
+    @Transactional
     public void deleteComment(Long commentId, Long userNo) {
+        var comment = commentRepository.findByIdAndCreatedNo(commentId, userNo)
+                .orElseThrow(() -> new BusinessException(NON_EXISTENT_COMMENT));
+        comment.delete();
     }
 
     @Transactional
