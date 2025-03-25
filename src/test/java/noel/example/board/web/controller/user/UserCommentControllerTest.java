@@ -48,6 +48,8 @@ class UserCommentControllerTest {
 
     private final String BASE_URI = "/v1/user/comment";
 
+    Long boardId = 1L;
+
     Long commentId = 1L;
 
     @Test
@@ -58,10 +60,10 @@ class UserCommentControllerTest {
         var userCommentCreateRequest = new UserCommentCreateRequest(null, "text");
         var request = objectMapper.writeValueAsString(userCommentCreateRequest);
 
-        when(userCommentService.createComment(any(UserCommentCreateRequest.class), anyLong()))
+        when(userCommentService.createComment(anyLong(), any(UserCommentCreateRequest.class), anyLong()))
                 .thenReturn(commentDto);
 
-        mockMvc.perform(post(BASE_URI)
+        mockMvc.perform(post(BASE_URI + "/{boardId}", boardId)
                         .contentType(APPLICATION_JSON)
                         .content(request)
                         .header(USER_NO, 1L)
