@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import static noel.example.board.exception.ErrorCode.NON_EXISTENT_COMMENT;
+import static noel.example.board.exception.ErrorCode.NON_EXISTENT_COMMENT_LIKE;
 
 @Service
 @RequiredArgsConstructor
@@ -69,6 +70,7 @@ public class UserCommentService {
     public void likeComment(Long commentId, Long userNo) {
         commentRepository.findById(commentId)
                 .orElseThrow(() -> new BusinessException(NON_EXISTENT_COMMENT));
+
         var commentLike = CommentLike.builder()
                 .commentId(commentId)
                 .createdNo(userNo)
@@ -77,7 +79,13 @@ public class UserCommentService {
         commentLikeRepository.save(commentLike);
     }
 
+    @Transactional
     public void unlikeComment(Long commentId, Long userNo) {
+        commentRepository.findById(commentId)
+                .orElseThrow(() -> new BusinessException(NON_EXISTENT_COMMENT));
 
+        var commentLike = commentLikeRepository.findByCommentIdAndCreatedNo(commentId, userNo)
+                .orElseThrow(() -> new BusinessException(NON_EXISTENT_COMMENT_LIKE));
+        commentLikeRepository.delete(commentLike);
     }
 }
