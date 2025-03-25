@@ -23,11 +23,12 @@ public class UserCommentController {
     /**
      * 사용자 - 댓글 생성
      */
-    @PostMapping
+    @PostMapping("/{boardId}")
     public ApiResponse<UserCommentCreateVm> createComment(
+            @PathVariable("boardId") Long boardId,
             @RequestBody UserCommentCreateRequest request,
             @User Long userNo) {
-        var dto = userCommentService.createComment(request, userNo);
+        var dto = userCommentService.createComment(boardId, request, userNo);
         return new ApiResponse<>(null, new UserCommentCreateVm(dto));
     }
 
