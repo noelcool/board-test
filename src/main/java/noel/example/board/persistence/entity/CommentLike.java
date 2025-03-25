@@ -35,7 +35,8 @@ public class CommentLike {
     private LocalDateTime createdAt;
 
     @Builder
-    public CommentLike(String createdBy, Long createdNo) {
+    public CommentLike(Long commentId, String createdBy, Long createdNo) {
+        this.commentId = commentId;
         this.createdBy = createdBy;
         this.createdNo = createdNo;
     }

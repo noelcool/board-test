@@ -4,7 +4,9 @@ import lombok.RequiredArgsConstructor;
 import noel.example.board.exception.BusinessException;
 import noel.example.board.model.dto.CommentDto;
 import noel.example.board.persistence.entity.Comment;
+import noel.example.board.persistence.entity.CommentLike;
 import noel.example.board.persistence.entity.CommentReport;
+import noel.example.board.persistence.repository.CommentLikeRepository;
 import noel.example.board.persistence.repository.CommentReportRepository;
 import noel.example.board.persistence.repository.CommentRepository;
 import noel.example.board.web.request.user.UserCommentCreateRequest;
@@ -23,6 +25,7 @@ public class UserCommentService {
 
     private final CommentRepository commentRepository;
     private final CommentReportRepository commentReportRepository;
+    private final CommentLikeRepository commentLikeRepository;
 
     public Page<CommentDto> getBoardComments(Pageable pageable, Long userNo) {
         return null;
@@ -62,7 +65,16 @@ public class UserCommentService {
         }
     }
 
+    @Transactional
     public void likeComment(Long commentId, Long userNo) {
+        commentRepository.findById(commentId)
+                .orElseThrow(() -> new BusinessException(NON_EXISTENT_COMMENT));
+        var commentLike = CommentLike.builder()
+                .commentId(commentId)
+                .createdNo(userNo)
+                .createdBy(userNo.toString())
+                .build();
+        commentLikeRepository.save(commentLike);
     }
 
     public void unlikeComment(Long commentId, Long userNo) {
