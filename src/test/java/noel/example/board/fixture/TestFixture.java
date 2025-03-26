@@ -48,9 +48,11 @@ public class TestFixture {
                 "text",
                 12345L,
                 LocalDateTime.now(),
+                false,
                 "김모카",
                 LocalDateTime.now(),
-                LocalDateTime.now()
+                LocalDateTime.now(),
+                false
         );
     }
 }

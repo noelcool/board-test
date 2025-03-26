@@ -12,9 +12,11 @@ public record CommentDto(
         String text,
         Long blindAdminNo,
         LocalDateTime blindedAt,
+        boolean isAuthor,
         String createdBy,
         LocalDateTime createdAt,
-        LocalDateTime updatedAt
+        LocalDateTime updatedAt,
+        boolean isLike
 ) {
 
     public CommentDto(Comment comment) {
@@ -24,10 +26,26 @@ public record CommentDto(
                 comment.isBlocked() ? BLOCK_COMMENT : comment.getText(),
                 comment.getBlockDetail().adminNo(),
                 comment.getBlockDetail().blindedAt(),
+                false, // FIXME
                 comment.getCreatedBy(),
                 comment.getCreatedAt(),
-                comment.getUpdatedAt()
+                comment.getUpdatedAt(),
+                false
         );
     }
 
+    public CommentDto(Comment comment, Long userNo, boolean isLike) {
+        this(
+                comment.getId(),
+                comment.getParentId(),
+                comment.isBlocked() ? BLOCK_COMMENT : comment.getText(),
+                comment.getBlockDetail().adminNo(),
+                comment.getBlockDetail().blindedAt(),
+                comment.getCreatedNo().equals(userNo),
+                comment.getCreatedBy(),
+                comment.getCreatedAt(),
+                comment.getUpdatedAt(),
+                isLike
+        );
+    }
 }
