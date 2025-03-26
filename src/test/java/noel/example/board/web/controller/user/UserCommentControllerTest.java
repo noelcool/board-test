@@ -99,7 +99,7 @@ class UserCommentControllerTest {
 
         var commentDto = TestFixture.getCommentDto();
 
-        var userCommentUpdateRequest = new UsersCommentUpdateRequest(null, "text");
+        var userCommentUpdateRequest = new UsersCommentUpdateRequest("text");
         var request = objectMapper.writeValueAsString(userCommentUpdateRequest);
 
         when(userCommentService.updateComment(anyLong(), any(UsersCommentUpdateRequest.class), anyLong()))

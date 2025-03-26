@@ -8,8 +8,10 @@ public record UserBoardCommentSearchVm(
         long id,
         Long parentId,
         String text,
+        boolean isAuthor,
         String createdBy,
-        LocalDateTime createdAt
+        LocalDateTime createdAt,
+        boolean isLike
 ) {
 
     public UserBoardCommentSearchVm(CommentDto dto) {
@@ -17,8 +19,10 @@ public record UserBoardCommentSearchVm(
                 dto.id(),
                 dto.parentId(),
                 dto.text(),
+                dto.isAuthor(),
                 dto.createdBy(),
-                dto.createdAt()
+                dto.createdAt(),
+                dto.isLike()
         );
     }
 }
