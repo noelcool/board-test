@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,9 +27,10 @@ public class UserBoardController {
      */
     @GetMapping("/{boardId}")
     public ApiResponse<Page<UserBoardCommentSearchVm>> getBoardComments(
+            @PathVariable("boardId") Long boardId,
             @PageableDefault(page = 1, size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
             @User Long userNo) {
-        var dto = userCommentService.getBoardComments(pageable, userNo);
+        var dto = userCommentService.getBoardComments(boardId, pageable, userNo);
         return new ApiResponse<>(null, dto.map(UserBoardCommentSearchVm::new));
     }
 

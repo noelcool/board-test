@@ -8,10 +8,13 @@ public record AdminCommentVm(
         long id,
         Long parentId,
         String text,
+        Long blindAdminNo,
+        LocalDateTime blindedAt,
+        boolean isAuthor,
         String createdBy,
         LocalDateTime createdAt,
-        Long blindAdminNo,
-        LocalDateTime blindedAt
+        LocalDateTime updatedAt,
+        boolean isLike
 ) {
 
     public AdminCommentVm(CommentDto dto) {
@@ -19,10 +22,13 @@ public record AdminCommentVm(
                 dto.id(),
                 dto.parentId(),
                 dto.text(),
+                dto.blindAdminNo(),
+                dto.blindedAt(),
+                dto.isAuthor(),
                 dto.createdBy(),
                 dto.createdAt(),
-                dto.blindAdminNo(),
-                dto.blindedAt()
+                dto.updatedAt(),
+                dto.isLike()
         );
     }
 }

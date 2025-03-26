@@ -22,4 +22,6 @@ public interface CommentRepository extends JpaRepository<Comment, Long>, JpaSpec
     Optional<Comment> findByIdAndIsDeletedIsFalse(Long commentId);
 
     Optional<Comment> findByIdAndIsDeletedIsFalseAndCreatedNo(Long commentId, Long userNo);
+
+    Page<Comment> findByBoardId(Long boardId, Pageable pageable);
 }

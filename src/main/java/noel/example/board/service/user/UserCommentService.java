@@ -17,6 +17,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
 import static noel.example.board.exception.ErrorCode.NON_EXISTENT_COMMENT;
 import static noel.example.board.exception.ErrorCode.NON_EXISTENT_COMMENT_LIKE;
 
@@ -28,8 +31,13 @@ public class UserCommentService {
     private final CommentReportRepository commentReportRepository;
     private final CommentLikeRepository commentLikeRepository;
 
-    public Page<CommentDto> getBoardComments(Pageable pageable, Long userNo) {
-        return null;
+    public Page<CommentDto> getBoardComments(Long boardId, Pageable pageable, Long userNo) {
+        var comments = commentRepository.findByBoardId(boardId, pageable);
+
+        var commentLikes = commentLikeRepository.findAllByCommentIdInAndCreatedNo(comments.stream().map(Comment::getId).toList());
+        var commentLikeMap = commentLikes.stream().collect(Collectors.toMap(CommentLike::getCommentId, Function.identity()));
+
+        return comments.map(c -> new CommentDto(c, userNo, commentLikeMap.containsKey(c.getId())));
     }
 
     @Transactional
